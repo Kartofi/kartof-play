@@ -5,8 +5,9 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const port = 3000;
 const { MongoClient } = require("mongodb");
+require('dotenv').config()
 
-
+const url = process.env.mongodb
 const client = new MongoClient(url);
 const dbName = "Kartof-PLay";
 
