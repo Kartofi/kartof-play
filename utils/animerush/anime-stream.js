@@ -18,10 +18,15 @@ module.exports = {
 
     let source = $("div.player-area");
     let url = source.children().find("iframe").attr("src");
-
-    data = {
-      url: url,
-    };
+    if (url == undefined) {
+      data = {
+        url: "/error",
+      };
+    } else {
+      data = {
+        url: url,
+      };
+    }
 
     return data;
   },

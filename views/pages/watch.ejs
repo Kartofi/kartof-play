@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Watch</title>
-    <link rel="icon" href="/images/kartof-play.png">
+    <link rel="icon" href="/images/kartof-play.png" />
   </head>
   <link href="/watch.css" rel="stylesheet" type="text/css" />
   <link href="/common/cards.css" rel="stylesheet" type="text/css" />
@@ -16,25 +16,40 @@
     rel="stylesheet"
   />
   <script>
+    function load() {
+      if ("<%= stream.url %>" == undefined) {
+      document.getElementById("gogoanime").disabled = true
+    }
+    if ("<%= rush_stream.url %>" == undefined) {
+      document.getElementById("animerush").disabled = true
+    }
+    }
     function resizeIframe(obj) {
       obj.style.height =
         obj.contentWindow.document.documentElement.scrollHeight + "px";
     }
+    function changeSource(source) {
+      if (source == "gogo") {
+        document.getElementById("player").src = "<%= stream.url %>";
+      } else if (source == "rush") {
+        document.getElementById("player").src = "<%= rush_stream.url %>";
+      }
+    }
   </script>
-  <body>
+  <body onload="load()">
     <a class="episode" href="/">Home</a>
     <a class="episode abutton" onclick="history.back()">Back</a>
     <br />
     <br />
     <% if(new_ep.next_ep != undefined) { %>
-      <center>
-        
-            <time style="color: yellow" class="next_ep" datetime="<%= new_ep.next_ep %>"
-              >Next Episode: <%= new_ep.date %></time
-            >
-          
-      </center>
-   <% } %>
+
+    <center class="next_ep">
+      <time style="color: yellow" datetime="<%= new_ep.next_ep %>"
+        >Next Episode: <%= new_ep.date %></time
+      >
+    </center>
+
+    <% } %>
     <br />
     <br />
     <div class="episodes">
@@ -63,7 +78,7 @@
       <% }%>
 
       <br />
-      <a style="color: yellow;"><%= rating %>✨</a>
+      <a style="color: yellow"><%= rating %>✨</a>
       <br />
       <% if(details.animeTitle != undefined) { %>
 
@@ -82,9 +97,18 @@
       <br />
     </div>
     <center>
+      <a class="episode abutton" id="gogoanime" onclick="changeSource('gogo')"
+        >GoGoAnime</a
+      >
+      <a class="episode abutton" id="animerush" onclick="changeSource('rush')"
+        >AnimeRush</a
+      >
+      <br />
+      <br />
       <iframe
         src="<%= stream.url %>"
         frameborder="0"
+        id="player"
         scrolling="no"
         onload="resizeIframe(this)"
       ></iframe>

@@ -18,15 +18,16 @@ body {
   background-color: #303030;
   border-radius: 10px;
 }
-.next_ep{
-  text-align: center;
+.next_ep {
   font-size: 30px;
   padding: 1px 1px;
   text-decoration: none;
   color: white;
   background-color: #303030;
   border-radius: 10px;
+  
 }
+
 .episodes {
   display: grid;
   column-gap: 10px;
@@ -72,7 +73,6 @@ iframe {
   align-items: center;
 }
 img {
-  
 }
 a {
   font-family: "Open Sans", sans-serif;
