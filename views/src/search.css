@@ -1,0 +1,73 @@
+input,
+option,
+select {
+  color: white;
+  background-color: #141414;
+  border-radius: 30px;
+  font-size: 30px;
+  border: 0px;
+}
+on:hover {
+  cursor: pointer;
+}
+@media screen and (min-width: 600px) {
+  .card {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .card {
+    width: 95%;
+  }
+}
+
+a {
+  font-family: "Open Sans", sans-serif;
+  color: rgb(138, 136, 252);
+  font-size: 17px;
+}
+h1 {
+  font-family: "Open Sans", sans-serif;
+  color: rgb(138, 136, 252);
+  font-size: 1fr;
+}
+a:link {
+  text-decoration: none;
+  color: rgb(138, 136, 252);
+}
+a:link:hover {
+  cursor: pointer;
+}
+a:visited {
+  color: rgb(138, 136, 252);
+}
+.abutton {
+  background-color: #363636;
+  border-radius: 10px;
+  font-size: 30px;
+  border: 0px;
+  color: rgb(138, 136, 252);
+}
+.title {
+  font-size: 30px;
+
+  color: rgb(138, 136, 252);
+}
+.abutton:hover {
+  cursor: pointer;
+}
+.data {
+  text-align: center;
+  background-color: transparent;
+  border-radius: 10px;
+  height: fit-content;
+}
+.important {
+  color: yellow;
+}
+
+body {
+  background-color: #191919;
+  font-family: "Open Sans", sans-serif;
+}

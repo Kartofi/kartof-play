@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search</title>
+    <link rel="icon" href="/images/kartof-play.png" />
+  </head>
+  <link href="/search.css" rel="stylesheet" type="text/css" />
+  <link href="/common/cards.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    function load() {
+      document.getElementById("keyword").value = " <%= keyword %>";
+      document.getElementById("select").value = "<%= source %>";
+    }
+    function search() {
+      if (document.getElementById("keyword").value.trim().length > 0) {
+        window.location =
+          "/search/" +
+          document.getElementById("keyword").value +
+          "/" +
+          document.getElementById("select").value;
+      } else {
+        window.location = "/search/" + "Anime" + "/gogo";
+      }
+    }
+  </script>
+  <body onload="load()">
+    <a class="abutton" href="/">Home</a>
+    <a class="abutton" onclick="history.back()">Back</a>
+    <center>
+      <input id="keyword" type="text" />
+      <button class="abutton" onclick="search()">Search</button>
+      <select id="select">
+        <option>GoGoAnime</option>
+        <option>MAL</option>
+      </select>
+    </center>
+    <br />
+    <br />
+    <div class="container">
+      <% data.forEach(function(element) { %>
+      <div class="card">
+        <img class="card-img" src="<%= element.animeImg %>" />
+        <br />
+        <div class="data">
+          <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
+          <br />
+          <a class="important"><%= element.rating %>🌟</a>
+        </div>
+      </div>
+
+      <% }) %>
+    </div>
+  </body>
+</html>

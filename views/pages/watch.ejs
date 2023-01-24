@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Watch</title>
+    <link rel="icon" href="/images/kartof-play.png">
+  </head>
+  <link href="/watch.css" rel="stylesheet" type="text/css" />
+  <link href="/common/cards.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    function resizeIframe(obj) {
+      obj.style.height =
+        obj.contentWindow.document.documentElement.scrollHeight + "px";
+    }
+  </script>
+  <body>
+    <a class="episode" href="/">Home</a>
+    <a class="episode abutton" onclick="history.back()">Back</a>
+    <br />
+    <br />
+    <% if(new_ep.next_ep != undefined) { %>
+      <center>
+        
+            <time style="color: yellow" class="next_ep" datetime="<%= new_ep.next_ep %>"
+              >Next Episode: <%= new_ep.date %></time
+            >
+          
+      </center>
+   <% } %>
+    <br />
+    <br />
+    <div class="episodes">
+      <% if (details.episodesList != undefined) { %> <%
+      details.episodesList.forEach(function(element) { %>
+      <div class="episode">
+        <% if(episode == element.episodeNum) {%>
+        <a style="color: rgb(85, 255, 85)" href="<%= element.watchUrl %>">
+          <%= element.episodeNum %></a
+        >
+        <%}else {%>
+        <a href="<%= element.watchUrl %>"> <%= element.episodeNum %></a>
+        <%}%>
+      </div>
+
+      <% })} %>
+    </div>
+
+    <div class="details">
+      <% if(details.animeTitle != undefined) { %>
+      <a class="white_text"><%= details.animeTitle %></a>
+
+      <% }else { %>
+
+      <a class="white_text"><%= mal_search[0].animeTitle %></a>
+      <% }%>
+
+      <br />
+      <a style="color: yellow;"><%= rating %>✨</a>
+      <br />
+      <% if(details.animeTitle != undefined) { %>
+
+      <img src="<%= details.animeImg %>" />
+      <% }else { %>
+      <img src="<%= mal_search[0].animeImg %>" />
+      <% } %>
+
+      <br />
+      <center>
+        <div class="description">
+          <a> <%= details.synopsis %> </a>
+        </div>
+      </center>
+
+      <br />
+    </div>
+    <center>
+      <iframe
+        src="<%= stream.url %>"
+        frameborder="0"
+        scrolling="no"
+        onload="resizeIframe(this)"
+      ></iframe>
+    </center>
+  </body>
+</html>

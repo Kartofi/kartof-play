@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="icon" href="/images/kartof-play.png" />
+  </head>
+  <link href="./index.css" rel="stylesheet" type="text/css" />
+  <link href="./common/cards.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    function load() {}
+    function search() {
+      if (document.getElementById("keyword").value.trim().length > 0) {
+        window.location =
+          "/search/" +
+          document.getElementById("keyword").value +
+          "/" +
+          document.getElementById("select").value;
+      } else {
+        window.location = "/search/" + "Anime" + "/gogo";
+      }
+    }
+  </script>
+  <body onload="load()">
+    <div class="nav_bar">
+      <center>
+        <a class="title">Kartof Play</a>
+        <input id="keyword" type="text" />
+        <button class="abutton" onclick="search()">Search</button>
+        <select id="select">
+          <option>GoGoAnime</option>
+          <option>MAL</option>
+        </select>
+      </center>
+    </div>
+
+    <br />
+    <center>
+      <h1>Today</h1>
+    </center>
+
+    <div class="container">
+      <% data.forEach(function(element) { %>
+      <div class="card">
+        <img class="card-img" src="<%= element.image %>" />
+        <br />
+        <div class="data">
+          <a href="<%= element.watch_url %>"><%= element.title %></a>
+          <br />
+          <a <% if (element.out == true) { %> style="color: yellow;" <% }else{%> style="color: gray;" <%} %> class="important"><%= element.episode %> / <%= element.time %></a>
+        </div>
+      </div>
+
+      <% }) %>
+    </div>
+    <br />
+
+    <center>
+      <h1>Popular</h1>
+    </center>
+
+    <div class="container">
+      <% popular.forEach(function(element) { %>
+      <div class="card">
+        <img class="card-img" src="<%= element.animeImg %>" />
+        <br />
+        <div class="data">
+          <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
+          <br />
+          <a class="important">Released <%= element.releasedDate %></a>
+        </div>
+      </div>
+
+      <% }) %>
+    </div>
+  </body>
+</html>
