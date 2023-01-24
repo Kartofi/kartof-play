@@ -5,9 +5,9 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const port = 3000;
 const { MongoClient } = require("mongodb");
-require('dotenv').config()
+require("dotenv").config();
 
-const url = process.env.mongodb
+const url = process.env.mongodb;
 const client = new MongoClient(url);
 const dbName = "Kartof-PLay";
 
@@ -87,10 +87,15 @@ app.get("/watch/:id/:episode", async (req, res) => {
       );
     }
   }
-  if (name.length >= 100) {
-    name.substring(name.length - 1, name.length - (name.length - 100));
+  if (name.includes(",")) {
+    name = name.split(",")[1];
   }
+  if (name.length >= 100) {
+    name = name.substring(0, name.length - (name.length - 100));
+  }
+
   let mal = await anime_mal_search.run(name);
+
   let rating = 0;
   let data_schedule = await anime_data_schedule.run(id);
 
