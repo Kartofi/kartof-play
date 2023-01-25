@@ -27,8 +27,10 @@ module.exports = {
           data.push({
             animeId: id.split("/")[4],
             animeTitle: id.split("/")[4].replaceAll("-", " "),
-            animeImg: image.replaceAll("//", "")
+            animeImg: "https:" + image,
+            source: "(AnimeRush)"
           });
+          
         }
       }
     });

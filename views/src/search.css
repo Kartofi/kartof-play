@@ -20,12 +20,17 @@ on:hover {
   .card {
     width: 95%;
   }
+  input,
+  option,
+  select {
+    width: 100%;
+  }
 }
+
 
 a {
   font-family: "Open Sans", sans-serif;
   color: rgb(138, 136, 252);
-  font-size: 17px;
 }
 h1 {
   font-family: "Open Sans", sans-serif;

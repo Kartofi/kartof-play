@@ -16,33 +16,6 @@
   }
 }
 
-a {
-  font-family: "Open Sans", sans-serif;
-  color: rgb(138, 136, 252);
-  font-size: 17px;
-}
-h1 {
-  font-family: "Open Sans", sans-serif;
-  color: rgb(138, 136, 252);
-  font-size: 1fr;
-}
-a:link {
-  text-decoration: none;
-  color: rgb(138, 136, 252);
-}
-a:link:hover {
-  cursor: pointer;
-}
-a:visited {
-  color: rgb(138, 136, 252);
-}
-.abutton {
-  background-color: #363636;
-  
-  font-size: 30px;
-  border: 0px;
-  color: rgb(138, 136, 252);
-}
 .title {
   font-size: 30px;
 
@@ -65,9 +38,7 @@ select {
   position: relative;
   left: 0px;
 }
-.abutton:hover {
-  cursor: pointer;
-}
+
 .data {
   text-align: center;
   background-color: transparent;
@@ -79,6 +50,6 @@ select {
 }
 
 body {
-  background-color: #191919;
+  
   font-family: "Open Sans", sans-serif;
 }

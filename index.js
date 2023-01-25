@@ -53,9 +53,18 @@ app.get("/search/:keyword/:source", async (req, res) => {
   let data;
   if (req.params.source == "GoGoAnime") {
     data = await anime_gogo_search.run(req.params.keyword);
-  } else {
+  } else if(req.params.source == "MAL") {
     data = await anime_mal_search.run(req.params.keyword);
+  }else if (req.params.source == "AnimeRush") {
+    data = await anime_search_rush.run(req.params.keyword);
+  }else {
+    data = await anime_mal_search.run(req.params.keyword);
+    let gogosearch = await anime_gogo_search.run(req.params.keyword);
+    let rushsearch = await anime_search_rush.run(req.params.keyword);
+    data = data.concat(gogosearch);
+    data = data.concat(rushsearch);
   }
+  
   res.render("pages/search.ejs", {
     data: data,
     keyword: req.params.keyword,

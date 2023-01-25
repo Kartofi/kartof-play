@@ -57,12 +57,13 @@ select {
   border: 0px;
 }
 .nav_bar {
-  background-color: #191919;
+  background-color: #414141;
   border-radius: 10px;
   padding: 5px;
   width: calc(100% - 5);
   position: relative;
   left: 0px;
+  
 }
 .abutton:hover {
   cursor: pointer;

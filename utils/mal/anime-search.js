@@ -35,7 +35,8 @@ module.exports = {
           rating: score,
           type: type,
           episodes: eps,
-          watch_url: "/watch/" + getidfromname.run(image[0].attribs["alt"]) + "/1"
+          watch_url: "/watch/" + getidfromname.run(image[0].attribs["alt"]) + "/1",
+          source: "(MAL)"
         });
       }
     });

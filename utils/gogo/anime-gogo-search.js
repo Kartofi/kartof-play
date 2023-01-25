@@ -18,7 +18,8 @@ module.exports = {
             animeTitle: element.animeTitle,
             animeImg: element.animeImg,
             watch_url: "/watch/" + getidfromname.run(element.animeId) + "/1",
-            rating: "Nan"
+            rating: "Nan",
+            source: "(GoGoAnime)"
           });
         }
       });

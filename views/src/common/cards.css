@@ -6,8 +6,6 @@
   grid-column-gap: 20px;
 }
 .card {
-  width: 200px;
-  
   border: 1px solid rgb(138, 136, 252);
   background-image: radial-gradient(farthest-corner at 40px 40px,black, rgb(37, 36, 66));
 }

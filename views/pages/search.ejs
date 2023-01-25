@@ -9,6 +9,7 @@
   </head>
   <link href="/search.css" rel="stylesheet" type="text/css" />
   <link href="/common/cards.css" rel="stylesheet" type="text/css" />
+  <link href="/common/buttons.css" rel="stylesheet" type="text/css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -28,7 +29,7 @@
           "/" +
           document.getElementById("select").value;
       } else {
-        window.location = "/search/" + "Anime" + "/gogo";
+        window.location = "/search/" + "Anime" + "/All";
       }
     }
   </script>
@@ -39,8 +40,11 @@
       <input id="keyword" type="text" />
       <button class="abutton" onclick="search()">Search</button>
       <select id="select">
+        <option>All</option>
         <option>GoGoAnime</option>
+        <option>AnimeRush</option>
         <option>MAL</option>
+        
       </select>
     </center>
     <br />
@@ -51,6 +55,7 @@
         <img class="card-img" src="<%= element.animeImg %>" />
         <br />
         <div class="data">
+          <a style="color: rgb(223, 223, 255);"><%= element.source %></a>
           <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
           <br />
           <a class="important"><%= element.rating %>🌟</a>
