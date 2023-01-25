@@ -18,22 +18,25 @@
   <script>
     function load() {
       if ("<%= stream.url %>" == undefined) {
-      document.getElementById("gogoanime").disabled = true
+        document.getElementById("gogoanime").disabled = true;
+      }
+      if ("<%= rush_stream.url %>" == undefined) {
+        document.getElementById("animerush").disabled = true;
+      }
+      let scroll_height = document.getElementById("player").scrollHeight;
+      let scroll_width = document.getElementById("player").scrollWidth;
+
+      document.getElementById("player").width = scroll_width;
+      document.getElementById("player").height = scroll_height;
     }
-    if ("<%= rush_stream.url %>" == undefined) {
-      document.getElementById("animerush").disabled = true
-    }
-    }
-    function resizeIframe(obj) {
-      obj.style.height =
-        obj.contentWindow.document.documentElement.scrollHeight + "px";
-    }
+
     function changeSource(source) {
       if (source == "gogo") {
         document.getElementById("player").src = "<%= stream.url %>";
       } else if (source == "rush") {
         document.getElementById("player").src = "<%= rush_stream.url %>";
       }
+      load()
     }
   </script>
   <body onload="load()">
@@ -96,22 +99,32 @@
 
       <br />
     </div>
-    <center>
-      <a class="episode abutton" id="gogoanime" onclick="changeSource('gogo')"
-        >GoGoAnime</a
-      >
-      <a class="episode abutton" id="animerush" onclick="changeSource('rush')"
-        >AnimeRush</a
-      >
-      <br />
-      <br />
-      <iframe
-        src="<%= stream.url %>"
-        frameborder="0"
-        id="player"
-        scrolling="no"
-        onload="resizeIframe(this)"
-      ></iframe>
-    </center>
+   
+      <div class="player">
+        <center>
+        <a class="episode abutton" id="gogoanime" onclick="changeSource('gogo')"
+          >GoGoAnime</a
+        >
+        <a class="episode abutton" id="animerush" onclick="changeSource('rush')"
+          >AnimeRush</a
+        >
+        <br />
+        <br />
+        
+          <iframe
+          allowfullscreen=""
+          webkitallowfullscreen="true"
+          mozallowfullscreen="true"
+          oallowfullscreen="true"
+          msallowfullscreen="true"
+          src="<%= stream.url %>"
+          frameborder="0"
+          id="player"
+          scrolling="yes"
+        ></iframe>
+        </center>
+      
+      </div>
+    
   </body>
 </html>

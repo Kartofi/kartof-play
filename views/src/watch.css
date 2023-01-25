@@ -39,7 +39,14 @@ body {
 iframe {
   border: 0px;
   border-radius: 10px;
+  
+  height: 55vh;
 }
+.player{
+  width: 100%;
+height: 100%;
+}
+
 @media screen and (min-width: 600px) {
   .description {
     width: 50%;
@@ -47,9 +54,8 @@ iframe {
   img {
     width: 250px;
   }
-  iframe {
+  iframe{
     width: 50%;
-    height: 720px;
   }
 }
 
@@ -61,10 +67,9 @@ iframe {
     width: 100%;
     align-self: center;
   }
-  iframe {
-    width: 100%;
-    height: 400px;
-  }
+iframe{
+  width: 100%;
+}
 }
 .details {
   font-family: "Open Sans", sans-serif;

@@ -35,6 +35,9 @@ const login = require("./utils/accounts/login");
 const signup = require("./utils/accounts/signup");
 
 app.use(express.static("./views/src"));
+app.get("/error", async (req, res) => {
+  res.render("pages/error.ejs");
+});
 
 app.get("/", async (req, res) => {
   let data = await anime_schedule.run();
