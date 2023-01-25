@@ -10,7 +10,7 @@ Site Where you can watch anime for free🪐
 <img src="./imgs/preview.png">
 UI is trash but i will improve it
 <br>
-# Credits
+## Credits
 -[www.livechart.me](www.livechart.me)
 
 -[myanimelist.net](myanimelist.net)
