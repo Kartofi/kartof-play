@@ -21,6 +21,7 @@ const anime_gogo_search = require("./utils/gogo/anime-gogo-search");
 const anime_stream = require("./utils/gogo/anime-stream");
 const anime_gogo_details = require("./utils/gogo/anime-details");
 const anime_gogo_popular = require("./utils/gogo/anime-popular");
+const anime_gogo_recent = require("./utils/gogo/anime-recent");
 const getidfromname = require("./utils/getidfromname");
 
 //RUSH ANIME
@@ -38,10 +39,11 @@ app.use(express.static("./views/src"));
 app.get("/", async (req, res) => {
   let data = await anime_schedule.run();
   let popular = await anime_gogo_popular.run();
-
+  let recent = await anime_gogo_recent.run();
   res.render("pages/index.ejs", {
     data: data,
     popular: popular,
+    recent:recent
   });
 });
 app.get("/search/:keyword/:source", async (req, res) => {
@@ -120,86 +122,6 @@ app.get("/watch/:id/:episode", async (req, res) => {
     episode: req.params.episode,
     new_ep: data_schedule,
   });
-});
-
-app.get("/account", async (req, res) => {
-  await client.connect();
-
-  const db = client.db(dbName);
-  const collection = db.collection("Accounts");
-  await collection.insertOne({ username: 12, password: 22 });
-  res.render("pages/account.ejs", {});
-  await client.close();
-});
-//res.cookie('username',"1", { maxAge: 900000, httpOnly: true });
-//res.cookie('password',"1", { maxAge: 900000, httpOnly: true });
-async function getcookies(req) {
-  if (req.headers.cookie) {
-    return req.headers.cookie.split("; ");
-  } else {
-    return undefined;
-  }
-}
-app.get("/login", async (req, res) => {
-  await client.connect();
-
-  const db = client.db(dbName);
-  const collection = db.collection("Accounts");
-  let username = req.query.username;
-  let password = req.query.password;
-  
-  let exist = await checkexist.run(collection, {
-    username: username,
-  });
-  if (exist) {
-    res.cookie("username", username, { maxAge: 900000, httpOnly: true });
-    res.cookie("password", password, { maxAge: 900000, httpOnly: true });
-    res.redirect("/account");
-  } else {
-    res.redirect("/signup");
-  }
-
-  await client.close();
-});
-app.get("/signup", async (req, res) => {
-  await client.connect();
-  const db = client.db(dbName);
-  const collection = db.collection("Accounts");
-  let cookies = await getcookies(req);
-  let username_cookie;
-  let password_cookie;
-  if (cookies) {
-    username_cookie = cookies[0].split("=")[1];
-    password_cookie = cookies[1].split("=")[1];
-  }
-
-  let username = req.query.username;
-  let password = req.query.password;
-
-  if (username_cookie != undefined && password_cookie != undefined) {
-    res.redirect("/account");
-  } else {
-    if (username != undefined && password != undefined) {
-      let exist = await checkexist.run(collection, {
-        username: username,
-      });
-      let output = "";
-      if (exist == false) {
-        await signup.run(collection, {
-          username: username,
-          password: password,
-        });
-        output = "Done";
-      } else {
-        output = "Please login";
-      }
-      res.redirect("/login");
-    } else {
-      res.render("pages/signup.ejs");
-    }
-  }
-
-  await client.close();
 });
 
 /**

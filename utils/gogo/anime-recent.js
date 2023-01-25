@@ -5,7 +5,7 @@ module.exports = {
   data: {
     description: "Gives recent animes",
   },
-  run: async function (id) {
+  run: async function () {
     let data = [];
     await fetch("https://gogoanime.consumet.org/recent-release")
       .then((response) => response.json())
@@ -17,7 +17,7 @@ module.exports = {
             animeId: element.episodeId.split("-episode")[0],
             animeTitle: element.animeTitle,
             animeImg: element.animeImg,
-
+            watch_url: "/watch/" + element.episodeId.split("-episode")[0] + "/" + element.episodeNum,
             episodeNum: element.episodeNum,
           });
         }

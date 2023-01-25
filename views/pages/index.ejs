@@ -62,7 +62,25 @@
       <% }) %>
     </div>
     <br />
+    <center>
+      <h1>Recent Releases</h1>
+    </center>
 
+    <div class="container">
+      <% recent.forEach(function(element) { %>
+      <div class="card">
+        <img class="card-img" src="<%= element.animeImg %>" />
+        <br />
+        <div class="data">
+          <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
+          <br />
+          <a class="important">Episode <%= element.episodeNum %></a>
+        </div>
+      </div>
+
+      <% }) %>
+    </div>
+    <br>
     <center>
       <h1>Popular</h1>
     </center>
@@ -81,5 +99,7 @@
 
       <% }) %>
     </div>
+
+    
   </body>
 </html>
