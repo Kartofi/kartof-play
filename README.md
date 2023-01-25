@@ -8,7 +8,8 @@
 Site Where you can watch anime for free🪐
 ## Still in dev
 <img src="./imgs/preview.png">
-UI is trash but i will improve
+UI is trash but i will improve it
+<br>
 # Credits
 -[www.livechart.me](www.livechart.me)
 
