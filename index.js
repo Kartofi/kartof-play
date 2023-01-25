@@ -46,25 +46,25 @@ app.get("/", async (req, res) => {
   res.render("pages/index.ejs", {
     data: data,
     popular: popular,
-    recent:recent
+    recent: recent,
   });
 });
 app.get("/search/:keyword/:source", async (req, res) => {
   let data;
   if (req.params.source == "GoGoAnime") {
     data = await anime_gogo_search.run(req.params.keyword);
-  } else if(req.params.source == "MAL") {
+  } else if (req.params.source == "MAL") {
     data = await anime_mal_search.run(req.params.keyword);
-  }else if (req.params.source == "AnimeRush") {
+  } else if (req.params.source == "AnimeRush") {
     data = await anime_search_rush.run(req.params.keyword);
-  }else {
+  } else {
     data = await anime_mal_search.run(req.params.keyword);
     let gogosearch = await anime_gogo_search.run(req.params.keyword);
     let rushsearch = await anime_search_rush.run(req.params.keyword);
     data = data.concat(gogosearch);
     data = data.concat(rushsearch);
   }
-  
+
   res.render("pages/search.ejs", {
     data: data,
     keyword: req.params.keyword,
@@ -93,14 +93,28 @@ app.get("/watch/:id/:episode", async (req, res) => {
   if (stream.url == "/error" || stream.url == undefined) {
     stream = await anime_stream.run(id, req.params.episode);
   }
-  let rush_stream;
+  let rush_stream ={ url: "/error"};
   let animerunid = await anime_search_rush.run(name);
+
   if (animerunid.length >= 1) {
-    rush_stream = await anime_stream_rush.run(
-      animerunid[0].animeId,
-      req.params.episode
-    );
-    id = animerunid[0].animeId;
+    if (animerunid.length >= 2 && animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()) {
+      for (let i = 0; i < animerunid.length; i++) {
+        if (animerunid[i].animeTitle.toLowerCase() == name.toLowerCase()) {
+          rush_stream = await anime_stream_rush.run(
+            animerunid[i].animeId,
+            req.params.episode
+          );
+          id = animerunid[i].animeId;
+          break;
+        }
+      }
+    } else {
+      rush_stream = await anime_stream_rush.run(
+        animerunid[0].animeId,
+        req.params.episode
+      );
+      id = animerunid[0].animeId;
+    }
   } else {
     rush_stream = await anime_stream_rush.run(
       anime_id_rush.run(name),
