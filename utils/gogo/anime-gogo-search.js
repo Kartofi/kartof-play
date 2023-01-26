@@ -1,6 +1,7 @@
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 const getidfromname = require("../getidfromname");
+const cheerio = require("cheerio");
 
 module.exports = {
   data: {
@@ -8,21 +9,30 @@ module.exports = {
   },
   run: async function (name) {
     let data = [];
-    await fetch("https://gogoanime.consumet.org/search?keyw=" + name)
-      .then((response) => response.json())
-      .then((animelist) => {
-        for (let index = 0; index < animelist.length; index++) {
-          const element = animelist[index];
-          data.push({
-            animeId: element.animeId,
-            animeTitle: element.animeTitle,
-            animeImg: element.animeImg,
-            watch_url: "/watch/" + getidfromname.run(element.animeId) + "/1",
-            rating: "Nan",
-            source: "(GoGoAnime)"
-          });
-        }
-      });
+    let response = await fetch(
+      "https://gogoanime.tel/search.html?keyword=" + name
+    );
+
+    const body = await response.text();
+
+    let $ = cheerio.load(body);
+    let results = $("ul.items");
+    results.children().each(function (index, element) {
+      let title = $(element).find("a").attr("title");
+      let image = $(element).find("img").attr("src");
+      let id = $(element).find("a").attr("href").split("/")[2];
+      let watch_url = "/watch/" + $(element).find("a").attr("href").split("/")[2] + "/1"
+
+      data.push({
+        animeId: id,
+        animeTitle: title,
+        animeImg: image,
+        watch_url: watch_url,
+        rating: "Nan",
+        source: "(GoGoAnime)"
+      })
+    });
+   
     return data;
   },
 };

@@ -3,7 +3,7 @@ const fetch = (...args) =>
 const express = require("express");
 const app = express();
 const port = 3000;
-const { MongoClient } = require("mongodb");
+const { MongoClient, Timestamp } = require("mongodb");
 require("dotenv").config();
 
 const url = process.env.mongodb;
@@ -40,9 +40,12 @@ app.get("/error", async (req, res) => {
 });
 
 app.get("/", async (req, res) => {
+  let [data, popular, recent] = await Promise.all([
+    anime_schedule.run(),
+    anime_gogo_popular.run(),
+    anime_gogo_recent.run(),
+  ]);
 
-  let [data, popular, recent] = await Promise.all([anime_schedule.run(), anime_gogo_popular.run(),anime_gogo_recent.run()]);
-   
   res.render("pages/index.ejs", {
     data: data,
     popular: popular,
@@ -58,8 +61,11 @@ app.get("/search/:keyword/:source", async (req, res) => {
   } else if (req.params.source == "AnimeRush") {
     data = await anime_search_rush.run(req.params.keyword);
   } else {
-   
-    let [gogosearch, rushsearch, data1] = await Promise.all([anime_gogo_search.run(req.params.keyword), anime_search_rush.run(req.params.keyword), anime_mal_search.run(req.params.keyword)]);
+    let [gogosearch, rushsearch, data1] = await Promise.all([
+      anime_gogo_search.run(req.params.keyword),
+      anime_search_rush.run(req.params.keyword),
+      anime_mal_search.run(req.params.keyword),
+    ]);
     data = data1;
     data = data.concat(gogosearch);
     data = data.concat(rushsearch);
@@ -73,15 +79,23 @@ app.get("/search/:keyword/:source", async (req, res) => {
 });
 
 app.get("/watch/:id/:episode", async (req, res) => {
+  let started = new Timestamp(new Date());
+
   let search = await anime_gogo_search.run(req.params.id.replaceAll("-", " "));
+
   let id = req.params.id;
+
   if (search[0]) {
     id = search[0].animeId;
   }
+  let watch_id = id;
 
   let details = await anime_gogo_details.run(id);
-  let test_id = await getidfromname.run(details.animeTitle);
-  let stream = await anime_stream.run(test_id, req.params.episode);
+  if (details.watch_id != undefined) {
+    watch_id = details.watch_id;
+  }
+  let stream = await anime_stream.run(watch_id, req.params.episode);
+
   let name = "";
   if (details.name) {
     name = details.animeTitle;
@@ -94,6 +108,7 @@ app.get("/watch/:id/:episode", async (req, res) => {
   if (stream.url == "/error" || stream.url == undefined) {
     stream = await anime_stream.run(id, req.params.episode);
   }
+
   let rush_stream = { url: "/error" };
   let animerunid = await anime_search_rush.run(name);
 
@@ -102,6 +117,7 @@ app.get("/watch/:id/:episode", async (req, res) => {
       animerunid[0].animeId,
       req.params.episode
     );
+
     if (
       rush_stream.url == "/error" ||
       animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()
@@ -127,17 +143,20 @@ app.get("/watch/:id/:episode", async (req, res) => {
     name = name.substring(0, name.length - (name.length - 100));
   }
 
-  let mal = await anime_mal_search.run(name);
+  let [mal, data_schedule] = await Promise.all([
+    anime_mal_search.run(name),
+    anime_data_schedule.run(
+      replaceromantoarab.run(getidfromname.run(name.trim()))
+    ),
+  ]);
 
   let rating = 0;
 
   if (mal[0] != undefined) {
     rating = mal[0].rating;
   }
-  
-  let data_schedule = await anime_data_schedule.run(replaceromantoarab.run(id));
 
-  
+  console.log((Timestamp(new Date()) - started) / 1000);
 
   res.render("pages/watch.ejs", {
     stream: stream,

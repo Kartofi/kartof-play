@@ -24,8 +24,8 @@
   />
   <script>
     function load() {
-      document.getElementById("keyword").value = " <%= keyword %>";
-      document.getElementById("select").value = "<%= source %>";
+      document.getElementById("keyword").value = " <%=keyword%>".trim();
+      document.getElementById("select").value = "<%=source%>";
     }
     function search() {
       if (document.getElementById("keyword").value.trim().length > 0) {
