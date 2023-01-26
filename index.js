@@ -97,29 +97,25 @@ app.get("/watch/:id/:episode", async (req, res) => {
   let animerunid = await anime_search_rush.run(name);
 
   if (animerunid.length >= 1) {
-    if (animerunid.length >= 2 && animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()) {
-      for (let i = 0; i < animerunid.length; i++) {
-        if (animerunid[i].animeTitle.toLowerCase() == name.toLowerCase()) {
-          rush_stream = await anime_stream_rush.run(
-            animerunid[i].animeId,
-            req.params.episode
-          );
-          id = animerunid[i].animeId;
-          break;
-        }
-      }
-    } else {
+   
       rush_stream = await anime_stream_rush.run(
         animerunid[0].animeId,
-        req.params.episode
-      );
-      id = animerunid[0].animeId;
+        req.params.episode)
+    if (rush_stream.url == "/error" || animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()) {
+     
+        for (let i = 0; i < animerunid.length; i++) {
+          if (animerunid[i].animeTitle.toLowerCase() == name.toLowerCase()) {
+            rush_stream = await anime_stream_rush.run(
+              animerunid[i].animeId,
+              req.params.episode
+            );
+            id = animerunid[i].animeId;
+            
+            break;
+          }
+        }
+      
     }
-  } else {
-    rush_stream = await anime_stream_rush.run(
-      anime_id_rush.run(name),
-      req.params.episode
-    );
   }
 
   if (name.includes(",")) {
