@@ -40,9 +40,9 @@ app.get("/error", async (req, res) => {
 });
 
 app.get("/", async (req, res) => {
-  let data = await anime_schedule.run();
-  let popular = await anime_gogo_popular.run();
-  let recent = await anime_gogo_recent.run();
+
+  let [data, popular, recent] = await Promise.all([anime_schedule.run(), anime_gogo_popular.run(),anime_gogo_recent.run()]);
+   
   res.render("pages/index.ejs", {
     data: data,
     popular: popular,
@@ -58,9 +58,9 @@ app.get("/search/:keyword/:source", async (req, res) => {
   } else if (req.params.source == "AnimeRush") {
     data = await anime_search_rush.run(req.params.keyword);
   } else {
-    data = await anime_mal_search.run(req.params.keyword);
-    let gogosearch = await anime_gogo_search.run(req.params.keyword);
-    let rushsearch = await anime_search_rush.run(req.params.keyword);
+   
+    let [gogosearch, rushsearch, data1] = await Promise.all([anime_gogo_search.run(req.params.keyword), anime_search_rush.run(req.params.keyword), anime_mal_search.run(req.params.keyword)]);
+    data = data1;
     data = data.concat(gogosearch);
     data = data.concat(rushsearch);
   }
@@ -78,6 +78,7 @@ app.get("/watch/:id/:episode", async (req, res) => {
   if (search[0]) {
     id = search[0].animeId;
   }
+
   let details = await anime_gogo_details.run(id);
   let test_id = await getidfromname.run(details.animeTitle);
   let stream = await anime_stream.run(test_id, req.params.episode);
@@ -93,28 +94,29 @@ app.get("/watch/:id/:episode", async (req, res) => {
   if (stream.url == "/error" || stream.url == undefined) {
     stream = await anime_stream.run(id, req.params.episode);
   }
-  let rush_stream ={ url: "/error"};
+  let rush_stream = { url: "/error" };
   let animerunid = await anime_search_rush.run(name);
 
   if (animerunid.length >= 1) {
-   
-      rush_stream = await anime_stream_rush.run(
-        animerunid[0].animeId,
-        req.params.episode)
-    if (rush_stream.url == "/error" || animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()) {
-     
-        for (let i = 0; i < animerunid.length; i++) {
-          if (animerunid[i].animeTitle.toLowerCase() == name.toLowerCase()) {
-            rush_stream = await anime_stream_rush.run(
-              animerunid[i].animeId,
-              req.params.episode
-            );
-            id = animerunid[i].animeId;
-            
-            break;
-          }
+    rush_stream = await anime_stream_rush.run(
+      animerunid[0].animeId,
+      req.params.episode
+    );
+    if (
+      rush_stream.url == "/error" ||
+      animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()
+    ) {
+      for (let i = 0; i < animerunid.length; i++) {
+        if (animerunid[i].animeTitle.toLowerCase() == name.toLowerCase()) {
+          rush_stream = await anime_stream_rush.run(
+            animerunid[i].animeId,
+            req.params.episode
+          );
+          id = animerunid[i].animeId;
+
+          break;
         }
-      
+      }
     }
   }
 
@@ -129,11 +131,13 @@ app.get("/watch/:id/:episode", async (req, res) => {
 
   let rating = 0;
 
-  let data_schedule = await anime_data_schedule.run(replaceromantoarab.run(id));
-
   if (mal[0] != undefined) {
     rating = mal[0].rating;
   }
+  
+  let data_schedule = await anime_data_schedule.run(replaceromantoarab.run(id));
+
+  
 
   res.render("pages/watch.ejs", {
     stream: stream,
