@@ -15,7 +15,7 @@ module.exports = {
     
     
     $('div.last_episodes > ul > li').each((i, el) => {
-      let data1 = $(el).children();
+      
       let image = $(el).find('div > a > img').attr('src');
       let title = $(el).find('p.name > a').attr('title')
       let id = $(el).find('p.name > a').attr('href').split("/category/")[1];

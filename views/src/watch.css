@@ -3,12 +3,26 @@ body {
   font-family: "Open Sans", sans-serif;
   color: white;
 }
-
-.description {
-  background-color: #303030;
-  border-radius: 10px;
+* {
+  transition-duration: 0.5s;
 }
+.description {
+  display: grid;
+  grid-template-areas: "menu right";
+  gap: 10px;
 
+  grid-row-gap: 20px;
+  grid-column-gap: 20px;
+}
+.description_text {
+  width: 100%;
+  grid-area: right;
+  text-size-adjust: auto;
+}
+.description_img {
+  width: 100%;
+  grid-area: menu;
+}
 .episode {
   text-align: center;
   font-size: 30px;
@@ -18,6 +32,9 @@ body {
   background-color: #303030;
   border-radius: 10px;
 }
+.episode:hover {
+  background-color: #686868;
+}
 .next_ep {
   font-size: 30px;
   padding: 1px 1px;
@@ -25,41 +42,57 @@ body {
   color: white;
   background-color: #303030;
   border-radius: 10px;
-  
 }
-
+#desc_data:hover {
+  cursor: pointer;
+}
+#othernames_data:hover {
+  cursor: pointer;
+}
 .episodes {
   display: grid;
   column-gap: 10px;
   row-gap: 10px;
   grid-template-rows: auto;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   width: 100%;
 }
 iframe {
   border: 0px;
   border-radius: 10px;
-  
+
   height: 55vh;
 }
-.player{
+.player {
   width: 100%;
-height: 100%;
+  height: 100%;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 700px) {
+  .description_text {
+    font-size: 30px;
+  }
   .description {
     width: 50%;
   }
-  img {
-    width: 250px;
+  .episodes {
+    width: 50%;
   }
-  iframe{
+  img {
+    width: 300px;
+  }
+  iframe {
     width: 50%;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
+  .description_text {
+    font-size: 4vw;
+  }
+  .episodes {
+    width: 100%;
+  }
   .description {
     width: 100%;
   }
@@ -67,9 +100,9 @@ height: 100%;
     width: 100%;
     align-self: center;
   }
-iframe{
-  width: 100%;
-}
+  iframe {
+    width: 100%;
+  }
 }
 .details {
   font-family: "Open Sans", sans-serif;

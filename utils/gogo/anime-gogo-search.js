@@ -17,12 +17,17 @@ module.exports = {
 
     let $ = cheerio.load(body);
     let results = $("ul.items");
+    
     results.children().each(function (index, element) {
+      
       let title = $(element).find("a").attr("title");
+      if (title == undefined) {
+        return;
+      }
       let image = $(element).find("img").attr("src");
       let id = $(element).find("a").attr("href").split("/")[2];
       let watch_url = "/watch/" + $(element).find("a").attr("href").split("/")[2] + "/1"
-
+      
       data.push({
         animeId: id,
         animeTitle: title,
