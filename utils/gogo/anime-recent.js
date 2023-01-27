@@ -1,27 +1,33 @@
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
-
+const cheerio = require("cheerio");
 module.exports = {
   data: {
     description: "Gives recent animes",
   },
-  run: async function () {
+  run: async function (page) {
     let data = [];
-    await fetch("https://gogoanime.consumet.org/recent-release")
-      .then((response) => response.json())
-      .then((animelist) => {
-        for (let index = 0; index < animelist.length; index++) {
-          const element = animelist[index];
-
-          data.push({
-            animeId: element.episodeId.split("-episode")[0],
-            animeTitle: element.animeTitle,
-            animeImg: element.animeImg,
-            watch_url: "/watch/" + element.episodeId.split("-episode")[0] + "/" + element.episodeNum,
-            episodeNum: element.episodeNum,
-          });
-        }
-      });
+    let response = await fetch("https://ajax.gogo-load.com/ajax/page-recent-release.html?page=" + page)
+    let body = await response.text();
+    let $ = cheerio.load(body);
+    let container = $("body > div.last_episodes.loaddub > ul")
+    
+    container.children().each(function(index, element) {
+  
+    
+      let id = $(element).find("p.name > a").attr("href").replace("/", "").split("-episode-")[0]
+      let episodeNum = $(element).find("p.name > a").attr("href").replace("/", "").split("-episode-")[1]
+     
+      data.push({
+        animeId: id,
+        animeTitle: $(element).find("p.name > a").text(),
+        episodeNum:episodeNum,
+        subOrDub: $(element).find("div.img > a > div").attr("class").replace("type ic-", ""),
+        animeImg: $(element).find("div.img > a > img").attr("src"),
+        watch_url: "/watch/" + id + "/" + episodeNum,
+      })
+     
+    })
     return data;
   },
 };

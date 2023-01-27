@@ -15,8 +15,6 @@ UI is trash but i will improve it
 
 -[myanimelist.net](myanimelist.net)
 
--[https://github.com/riimuru/gogoanime-api](https://github.com/riimuru/gogoanime-api)
-
 -[gogoanime.news](gogoanime.news)
 
 -[https://animeschedule.net/](https://animeschedule.net/)

@@ -40,12 +40,15 @@ app.get("/error", async (req, res) => {
 });
 
 app.get("/", async (req, res) => {
+  let started = new Timestamp(new Date());
+  
+
   let [data, popular, recent] = await Promise.all([
     anime_schedule.run(),
-    anime_gogo_popular.run(),
-    anime_gogo_recent.run(),
+    anime_gogo_popular.run(1),
+    anime_gogo_recent.run(1),
   ]);
-
+  console.log((Timestamp(new Date()) - started) / 1000);
   res.render("pages/index.ejs", {
     data: data,
     popular: popular,

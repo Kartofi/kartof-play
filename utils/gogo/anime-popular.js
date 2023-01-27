@@ -1,27 +1,35 @@
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
-  const getidfromname = require("../getidfromname");
+
+const cheerio = require("cheerio");
 module.exports = {
   data: {
     description: "Gives popular animes",
   },
-  run: async function (id) {
+  run: async function (page) {
     let data = [];
-    await fetch("https://gogoanime.consumet.org/popular")
-      .then((response) => response.json())
-      .then((animelist) => {
-        for (let index = 0; index < animelist.length; index++) {
-          const element = animelist[index];
-          data.push({
-            animeId: element.animeId,
-            animeTitle: element.animeTitle,
-            animeImg: element.animeImg,
-            releasedDate: element.releasedDate,
-            watch_url: "/watch/" + getidfromname.run(element.animeTitle) + "/1"
-          });
-        }
-      });
-      
+    let response = await fetch("https://gogoanime.tel/popular.html?page=" + page);
+    let body = await response.text();
+
+    let $ = cheerio.load(body);
+    
+    
+    $('div.last_episodes > ul > li').each((i, el) => {
+      let data1 = $(el).children();
+      let image = $(el).find('div > a > img').attr('src');
+      let title = $(el).find('p.name > a').attr('title')
+      let id = $(el).find('p.name > a').attr('href').split("/category/")[1];
+      let release = $(el).find("p.released").text().trim().replace("Released: ", "");
+      let watch_url = "/watch/" + id + "/1"
+      data.push({
+        animeId: id,
+        animeTitle: title,
+        animeImg: image,
+        releasedDate: release,
+        watch_url: watch_url
+      })
+    })
+    
     return data;
   },
 };

@@ -1,3 +1,5 @@
+const cheerio = require("cheerio");
+
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
@@ -6,26 +8,23 @@ module.exports = {
     description: "Gives stream for the anime",
   },
   run: async function (id, episode) {
-    let data = {};
+    let data = {
+      url : "/error"
+    };
 
-    await fetch(
-      "https://gogoanime.consumet.org/vidcdn/watch/" +
+    let response = await fetch(
+      "https://gogoanime.tel/" +
         id +
         "-episode-" +
         episode
     )
-      .then((response) => response.json())
-      .then((animelist) => {
-        if (animelist.error != undefined) {
-          data = {
-            url: "/error",
-          };
-        } else {
-          data = {
-            url: animelist.Referer,
-          };
-        }
-      });
+    let body = await response.text();
+
+    let $ = cheerio.load(body);
+    let urll = $("#load_anime > div > div > iframe").attr("src")
+    if (urll) {
+      data.url = urll;
+    }
     return data;
   },
 };
