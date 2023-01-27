@@ -11,9 +11,9 @@ Site Where you can watch anime for free🪐
 UI is trash but i will improve it
 
 ## Load Times
-Home page  1s~s
-Search page with all 1~s
-Watch page 3~s
+Home page  1s
+Search page with all 1s
+Watch page 3s
 
 ## Credits
 -[www.livechart.me](www.livechart.me)
