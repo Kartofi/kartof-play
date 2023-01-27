@@ -9,6 +9,7 @@ Site Where you can watch anime for free🪐
 ## Still in dev
 <img src="./imgs/preview.png">
 UI is trash but i will improve it
+
 ## Load Times
 Home page  1s~s
 Search page with all 1~s
