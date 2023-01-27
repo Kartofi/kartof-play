@@ -40,19 +40,26 @@
     }
   </script>
   <body onload="load()">
-    <a class="abutton" href="/">Home</a>
-    <a class="abutton" onclick="history.back()">Back</a>
-    <center>
-      <input id="keyword" type="text" />
-      <button class="abutton" onclick="search()">Search</button>
-      <select id="select">
-        <option>All</option>
-        <option>GoGoAnime</option>
-        <option>AnimeRush</option>
-        <option>MAL</option>
+    <div class="nav_bar">
+      <a href ="/">
+        <img class="logo"  src="/images/kartof-play.png">
+      </a>
         
-      </select>
-    </center>
+        <a class="title" href ="/">Kartof Play</a>
+        <center>
+          <input id="keyword" type="text" />
+          <button class="abutton" onclick="search()">Search</button>
+          <select id="select">
+            <option>All</option>
+            <option>GoGoAnime</option>
+            <option>AnimeRush</option>
+            <option>MAL</option>
+            
+          </select>
+        </center>
+
+    </div>
+   
     <br />
     <br />
     <div class="container">

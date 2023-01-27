@@ -56,8 +56,17 @@ a:visited {
 }
 .title {
   font-size: 30px;
-
+  float: left;
   color: rgb(138, 136, 252);
+}
+.nav_bar {
+  background-color: #414141;
+  padding: 10px;
+}
+.logo {
+  height: 46px;
+  width: 46px;
+  float: left;
 }
 .abutton:hover {
   cursor: pointer;
@@ -75,4 +84,5 @@ a:visited {
 body {
   background-color: #191919;
   font-family: "Open Sans", sans-serif;
+  margin: 0;
 }

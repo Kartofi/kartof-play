@@ -23,9 +23,12 @@ module.exports = {
     let synopsis = $("#wrapper_bg > section > section.content_left > div.main_body > div:nth-child(2) > div.anime_info_body_bg > p:nth-child(5)").text().replace("Plot Summary: ", "")
     //let status = $("#wrapper_bg > section > section.content_left > div.main_body > div.anime_info_body > div.anime_info_body_bg > p:nth-child(7)").text().replace("Status: ", "")
     let other_names = $("#wrapper_bg > section > section.content_left > div.main_body > div:nth-child(2) > div.anime_info_body_bg > p:nth-child(9)").text().replace("Other name: ", "").split("; ")
-   
-    
-    
+   let genre = $("#wrapper_bg > section > section.content_left > div.main_body > div:nth-child(2) > div.anime_info_body_bg > p:nth-child(6)").find("a")
+    let genres = [];
+
+    genre.each(function (index, element) {
+      genres.push(element.attribs.title)
+    })
     let episodes = [];
     
     const ep_end = parseInt($('#episode_page > li').last().text().trim().split("-")[1]);
@@ -43,7 +46,8 @@ data = {
   animeImg: img,
   totalEpisodes: ep_end,
   episodesList: episodes,
-  watch_id: getidformname.run(title)
+  watch_id: getidformname.run(title),
+  genres: genres
 }
 
 

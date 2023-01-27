@@ -2,6 +2,7 @@ body {
   background-color: #191919;
   font-family: "Open Sans", sans-serif;
   color: white;
+  margin: 0;
 }
 * {
   transition-duration: 0.5s;
@@ -36,11 +37,12 @@ body {
   background-color: #686868;
 }
 .next_ep {
-  font-size: 30px;
+  font-size: 35px;
   padding: 1px 1px;
   text-decoration: none;
   color: white;
-  background-color: #303030;
+  
+  
   border-radius: 10px;
 }
 #desc_data:hover {
@@ -49,6 +51,10 @@ body {
 #othernames_data:hover {
   cursor: pointer;
 }
+#genres_data:hover {
+  cursor: pointer;
+}
+
 .episodes {
   display: grid;
   column-gap: 10px;
@@ -140,6 +146,15 @@ a:visited {
 .white_text {
   color: white;
 }
+.nav_bar {
+  background-color: #414141;
+  padding: 10px;
+}
+.logo {
+  height: 46px;
+  width: 46px;
+  float: left;
+}
 h1 {
   font-family: "Open Sans", sans-serif;
   color: rgb(138, 136, 252);
@@ -148,9 +163,10 @@ h1 {
 
 .title {
   font-size: 30px;
-
+  float: left;
   color: rgb(138, 136, 252);
 }
+
 input,
 option,
 select {

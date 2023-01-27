@@ -73,19 +73,56 @@
     }
     function show_othernames(){
       
-      let show_desc = document.getElementById("othernames_data");
-      if (show_desc.text == "Show") {
-        show_desc.innerHTML = '<br><%= details.otherNames.toString() %>';
+      let show_othernames = document.getElementById("othernames_data");
+      if (show_othernames.text == "Show") {
+        show_othernames.innerHTML = '<br><%= details.otherNames.toString() %>';
       } else {
-        show_desc.innerHTML = "Show";
+        show_othernames.innerHTML = "Show";
+      }
+    }
+    function show_genres(){
+      let show_genres = document.getElementById("genres_data");
+      if (show_genres.text == "Show") {
+        show_genres.innerHTML = '<br><%= details.genres.toString() %>';
+      } else {
+        show_genres.innerHTML = "Show";
+      }
+    }
+    function search() {
+      if (document.getElementById("keyword").value.trim().length > 0) {
+        window.location =
+          "/search/" +
+          document.getElementById("keyword").value +
+          "/" +
+          document.getElementById("select").value;
+      } else {
+        window.location = "/search/" + "Anime" + "/All";
       }
     }
   </script>
   <body onload="load()">
-    <a class="episode" href="/">Home</a>
-    <a class="episode abutton" onclick="history.back()">Back</a>
+    <div class="nav_bar">
+      <a href ="/">
+        <img class="logo"  src="/images/kartof-play.png">
+      </a>
+        
+        <a class="title" href ="/">Kartof Play</a>
+        <center>
+          <input id="keyword" type="text" />
+          <button class="abutton" onclick="search()">Search</button>
+          <select id="select">
+            <option>All</option>
+            <option>GoGoAnime</option>
+            <option>AnimeRush</option>
+            <option>MAL</option>
+            
+          </select>
+        </center>
+
+    </div>
     <br />
     <br />
+    
     <% if(new_ep.next_ep != undefined) { %>
 
     <center class="next_ep">
@@ -95,7 +132,7 @@
     </center>
 
     <% } %>
-
+<br>
     <div class="details">
       <% if(details.animeTitle != undefined) { %>
       <a class="white_text"><%= details.animeTitle %></a>
@@ -133,7 +170,11 @@
               <a>Other Names: </a>
               <a id="othernames_data" onclick="show_othernames()">Show</details></a>
             <% } %>
-           
+            <br>
+            <% if(details.genres[0] != '') { %>
+              <a>Genres: </a>
+              <a id="genres_data" onclick="show_genres()">Show</details></a>
+            <% } %>
           </div>
         </div>
       </center>
