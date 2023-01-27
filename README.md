@@ -12,7 +12,9 @@ UI is trash but i will improve it
 
 ## Load Times
 Home page  1s
+
 Search page with all 1s
+
 Watch page 3s
 
 ## Credits
