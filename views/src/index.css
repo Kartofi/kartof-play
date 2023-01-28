@@ -13,6 +13,16 @@
   select {
     width: 100%;
   }
+  input,
+  option,
+  select::after {
+    content: "<br>";
+  }
+  input,
+  option,
+  select::before {
+    content: "<br>";
+  }
 }
 
 a {
@@ -57,10 +67,11 @@ option,
 select {
   color: white;
   background-color: #141414;
-  border-radius: 30px;
+  border-radius: 10px;
   font-size: 30px;
   border: 0px;
 }
+
 .nav_bar {
   background-color: #414141;
   padding: 10px;
@@ -72,6 +83,7 @@ select {
 }
 .abutton:hover {
   cursor: pointer;
+  background-color: #191919;
 }
 .data {
   text-align: center;
