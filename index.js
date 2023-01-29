@@ -3,12 +3,12 @@ const fetch = (...args) =>
 const express = require("express");
 const app = express();
 const port = 3000;
-//const { MongoClient, Timestamp } = require("mongodb");
+const { MongoClient, Timestamp } = require("mongodb");
 require("dotenv").config();
 
-//const url = process.env.mongodb;
-//const client = new MongoClient(url);
-//const dbName = "Kartof-PLay";
+const url = process.env.mongodb;
+const client = new MongoClient(url);
+const dbName = "Kartof-PLay";
 
 //Anime Schedule
 const anime_schedule = require("./utils/anime_schedule/anime-schedule");
@@ -30,9 +30,9 @@ const anime_stream_rush = require("./utils/animerush/anime-stream");
 const anime_id_rush = require("./utils/animerush/getidfromname");
 const anime_search_rush = require("./utils/animerush/anime-search");
 
-//const checkexist = require("./utils/accounts/checkexist");
-//const login = require("./utils/accounts/login");
-//const signup = require("./utils/accounts/signup");
+const checkexist = require("./utils/accounts/checkexist");
+const login = require("./utils/accounts/login");
+const signup = require("./utils/accounts/signup");
 
 app.use(express.static("./views/src"));
 app.get("/error", async (req, res) => {
