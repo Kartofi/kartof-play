@@ -4,6 +4,7 @@
 
 <img src="./views/src/images/kartof-play.png">
 
+[![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=https://github.com/Kartofi/kartof-play)
 
 Site Where you can watch anime for free🪐
 ## Still in dev
