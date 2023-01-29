@@ -64,7 +64,7 @@
 
     <div class="container">
       <% data.forEach(function(element) { %>
-      <div class="card">
+      <div onclick="location.href='<%= element.watch_url %>';" class="card">
         <img class="card-img" src="<%= element.image %>" />
         <br />
         <div class="data">
@@ -83,7 +83,7 @@
 
     <div class="container">
       <% recent.forEach(function(element) { %>
-      <div class="card">
+        <div onclick="location.href='<%= element.watch_url %>';" class="card">
         <img class="card-img" src="<%= element.animeImg %>" />
         <br />
         <div class="data">
@@ -102,7 +102,7 @@
 
     <div class="container">
       <% popular.forEach(function(element) { %>
-      <div class="card">
+        <div onclick="location.href='<%= element.watch_url %>';" class="card">
         <img class="card-img" src="<%= element.animeImg %>" />
         <br />
         <div class="data">

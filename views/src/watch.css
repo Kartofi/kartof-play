@@ -11,6 +11,7 @@ body {
   display: grid;
   grid-template-areas: "menu right";
   gap: 10px;
+  text-align: left;
 
   grid-row-gap: 20px;
   grid-column-gap: 20px;
@@ -24,6 +25,9 @@ body {
   width: 100%;
   grid-area: menu;
 }
+.description_img img {
+  float: right;
+}
 .episode {
   text-align: center;
   font-size: 30px;
@@ -32,27 +36,27 @@ body {
   color: white;
   background-color: #303030;
   border-radius: 10px;
+  border: 1px solid #303030;
 }
 .episode:hover {
-  background-color: #686868;
+  background-color: #191919;
+  background-image: radial-gradient(#303030, rgb(96, 95, 170));
+  cursor: pointer;
+  border: 1px solid rgb(138, 136, 252);
 }
 .next_ep {
   font-size: 35px;
   padding: 1px 1px;
   text-decoration: none;
   color: white;
-  
-  
+
   border-radius: 10px;
 }
-#desc_data:hover {
-  cursor: pointer;
-}
-#othernames_data:hover {
-  cursor: pointer;
-}
+#desc_data:hover,
+#othernames_data:hover,
 #genres_data:hover {
   cursor: pointer;
+  color: aliceblue;
 }
 
 .episodes {
@@ -65,8 +69,6 @@ body {
 }
 iframe {
   border: 0px;
-  border-radius: 10px;
-
   height: 55vh;
 }
 .player {
@@ -109,6 +111,21 @@ iframe {
   iframe {
     width: 100%;
   }
+  input,
+  option,
+  select {
+    width: 100%;
+  }
+  input,
+  option,
+  select::after {
+    content: "<br>";
+  }
+  input,
+  option,
+  select::before {
+    content: "<br>";
+  }
 }
 .details {
   font-family: "Open Sans", sans-serif;
@@ -139,9 +156,11 @@ a:visited {
   font-size: 30px;
   border: 0px;
   color: rgb(138, 136, 252);
+  border: 1px solid #303030;
 }
 .abutton:hover {
   cursor: pointer;
+  background-color: #191919;
 }
 .white_text {
   color: white;
@@ -172,7 +191,7 @@ option,
 select {
   color: white;
   background-color: #141414;
-  border-radius: 30px;
+  border-radius: 10px;
   font-size: 30px;
   border: 0px;
 }

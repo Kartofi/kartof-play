@@ -75,7 +75,8 @@
       
       let show_othernames = document.getElementById("othernames_data");
       if (show_othernames.text == "Show") {
-        show_othernames.innerHTML = '<br><%= details.otherNames.toString() %>';
+        let other_names = "<%=details.otherNames%>".split(",")
+        show_othernames.innerHTML = '' + other_names.join(", ");
       } else {
         show_othernames.innerHTML = "Show";
       }
@@ -83,7 +84,8 @@
     function show_genres(){
       let show_genres = document.getElementById("genres_data");
       if (show_genres.text == "Show") {
-        show_genres.innerHTML = '<br><%= details.genres.toString() %>';
+        let genres = "<%=details.genres %>".split(",")
+        show_genres.innerHTML = "" + genres.join(", ");
       } else {
         show_genres.innerHTML = "Show";
       }
@@ -185,7 +187,7 @@
       <div class="episodes">
         <% if (details.episodesList != undefined) { %> <%
         details.episodesList.forEach(function(element) { %>
-        <div class="episode">
+        <div onclick="location.href = `<%=element.watchUrl %>`" class="episode">
           <% if(episode == element.episodeNum) {%>
           <a style="color: rgb(85, 255, 85)" href="<%= element.watchUrl %>">
             <%= element.episodeNum %></a

@@ -1,1 +1,5 @@
 /.env
+/deta
+/node_modules
+.deta/prog_info
+.deta/state

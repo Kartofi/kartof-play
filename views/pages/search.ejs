@@ -64,7 +64,7 @@
     <br />
     <div class="container">
       <% data.forEach(function(element) { %>
-      <div class="card">
+        <div onclick="location.href='<%= element.watch_url %>';" class="card">
         <img class="card-img" src="<%= element.animeImg %>" />
         <br />
         <div class="data">
