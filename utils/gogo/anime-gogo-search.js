@@ -33,7 +33,7 @@ module.exports = {
         animeTitle: title,
         animeImg: image,
         watch_url: watch_url,
-        rating: "Nan",
+        rating: "",
         source: "(GoGoAnime)"
       })
     });
