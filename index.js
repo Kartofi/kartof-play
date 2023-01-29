@@ -40,15 +40,14 @@ app.get("/error", async (req, res) => {
 });
 
 app.get("/", async (req, res) => {
-  let started = new Timestamp(new Date());
-  
+  //let started = new Timestamp(new Date());
 
   let [data, popular, recent] = await Promise.all([
     anime_schedule.run(),
     anime_gogo_popular.run(1),
     anime_gogo_recent.run(1),
   ]);
-  console.log((Timestamp(new Date()) - started) / 1000);
+  //console.log((Timestamp(new Date()) - started) / 1000);
   res.render("pages/index.ejs", {
     data: data,
     popular: popular,
@@ -82,7 +81,7 @@ app.get("/search/:keyword/:source", async (req, res) => {
 });
 
 app.get("/watch/:id/:episode", async (req, res) => {
-  let started = new Timestamp(new Date());
+
 
   let search = await anime_gogo_search.run(req.params.id.replaceAll("-", " "));
 
@@ -157,22 +156,17 @@ app.get("/watch/:id/:episode", async (req, res) => {
 
   if (mal[0] != undefined) {
     rating = mal[0].rating;
-    
+
     if (details.animeTitle == null && stream.url == "/error") {
-      
       search = await anime_gogo_search.run(mal[0].animeTitle);
       if (search[0]) {
         id = search[0].animeId;
         details = await anime_gogo_details.run(id);
-        
+
         stream = await anime_stream.run(id, req.params.episode);
       }
-      
     }
-    
   }
-
-  console.log((Timestamp(new Date()) - started) / 1000);
 
   res.render("pages/watch.ejs", {
     stream: stream,
@@ -183,7 +177,6 @@ app.get("/watch/:id/:episode", async (req, res) => {
     episode: req.params.episode,
     new_ep: data_schedule,
   });
-  
 });
 
 /**
