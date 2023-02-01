@@ -3,12 +3,12 @@ const fetch = (...args) =>
 const express = require("express");
 const app = express();
 const port = 3000;
-//const { MongoClient, Timestamp } = require("mongodb");
+const { MongoClient, Timestamp } = require("mongodb");
 require("dotenv").config();
 
-//const url = process.env.mongodb;
-//const client = new MongoClient(url);
-//const dbName = "Kartof-PLay";
+const url = process.env.mongodb;
+const client = new MongoClient(url);
+const dbName = "Kartof-PLay";
 
 //Anime Schedule
 const anime_schedule = require("./utils/anime_schedule/anime-schedule");
@@ -30,9 +30,9 @@ const anime_stream_rush = require("./utils/animerush/anime-stream");
 const anime_id_rush = require("./utils/animerush/getidfromname");
 const anime_search_rush = require("./utils/animerush/anime-search");
 
-//const checkexist = require("./utils/accounts/checkexist");
-//const login = require("./utils/accounts/login");
-//const signup = require("./utils/accounts/signup");
+//Caching
+const checkid = require("./utils/caching/checkid")
+const savedata = require("./utils/caching/savedata")
 
 app.use(express.static("./views/src"));
 app.get("/error", async (req, res) => {
@@ -81,94 +81,106 @@ app.get("/search/:keyword/:source", async (req, res) => {
 });
 
 app.get("/watch/:id/:episode", async (req, res) => {
-
-
-  let search = await anime_gogo_search.run(req.params.id.replaceAll("-", " "));
-
   let id = req.params.id;
+  await client.connect();
+  const db = client.db(dbName);
+  let collection = db.collection("Watch_Cach")
+  let checkid_data = await checkid.run(collection, id, req.params.episode);
 
-  if (search[0]) {
-    id = search[0].animeId;
-  }
-  let watch_id = id;
+  if (checkid_data != null && (Date.now() / 1000) - checkid_data.time > 10) {
+    res.render("pages/watch.ejs", {
+      stream: checkid_data.data.stream,
+      rush_stream: checkid_data.data.rush_stream,
+      details: checkid_data.data.details,
+      mal_search: checkid_data.data.mal_search,
+      rating: checkid_data.data.rating,
+      episode: req.params.episode,
+      new_ep: checkid_data.data.new_ep,
+    });
+  }else {
+    let search = await anime_gogo_search.run(req.params.id.replaceAll("-", " "));
 
-  let details = await anime_gogo_details.run(id);
-  if (details.watch_id != undefined) {
-    watch_id = details.watch_id;
-  }
-  let stream = await anime_stream.run(watch_id, req.params.episode);
-
-  let name = "";
-  if (details.name) {
-    name = details.animeTitle;
-  } else if (search[0]) {
-    name = search[0].animeTitle;
-  } else {
-    name = id.replaceAll("-", " ");
-  }
-
-  if (stream.url == "/error" || stream.url == undefined) {
-    stream = await anime_stream.run(id, req.params.episode);
-  }
-
-  let rush_stream = { url: "/error" };
-  let animerunid = await anime_search_rush.run(name);
-
-  if (animerunid.length >= 1) {
-    rush_stream = await anime_stream_rush.run(
-      animerunid[0].animeId,
-      req.params.episode
-    );
-
-    if (
-      rush_stream.url == "/error" ||
-      animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()
-    ) {
-      for (let i = 0; i < animerunid.length; i++) {
-        if (animerunid[i].animeTitle.toLowerCase() == name.toLowerCase()) {
-          rush_stream = await anime_stream_rush.run(
-            animerunid[i].animeId,
-            req.params.episode
-          );
-          id = animerunid[i].animeId;
-
-          break;
+    if (search[0]) {
+      id = search[0].animeId;
+    }
+    let watch_id = id;
+  
+    let details = await anime_gogo_details.run(id);
+    if (details.watch_id != undefined) {
+      watch_id = details.watch_id;
+    }
+    let stream = await anime_stream.run(watch_id, req.params.episode);
+  
+    let name = "";
+    if (details.name) {
+      name = details.animeTitle;
+    } else if (search[0]) {
+      name = search[0].animeTitle;
+    } else {
+      name = id.replaceAll("-", " ");
+    }
+  
+    if (stream.url == "/error" || stream.url == undefined) {
+      stream = await anime_stream.run(id, req.params.episode);
+    }
+  
+    let rush_stream = { url: "/error" };
+    let animerunid = await anime_search_rush.run(name);
+  
+    if (animerunid.length >= 1) {
+      rush_stream = await anime_stream_rush.run(
+        animerunid[0].animeId,
+        req.params.episode
+      );
+  
+      if (
+        rush_stream.url == "/error" ||
+        animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()
+      ) {
+        for (let i = 0; i < animerunid.length; i++) {
+          if (animerunid[i].animeTitle.toLowerCase() == name.toLowerCase()) {
+            rush_stream = await anime_stream_rush.run(
+              animerunid[i].animeId,
+              req.params.episode
+            );
+            id = animerunid[i].animeId;
+  
+            break;
+          }
         }
       }
     }
-  }
-
-  if (name.includes(",")) {
-    name = name.split(",")[1];
-  }
-  if (name.length >= 100) {
-    name = name.substring(0, name.length - (name.length - 100));
-  }
-
-  let [mal, data_schedule] = await Promise.all([
-    anime_mal_search.run(name),
-    anime_data_schedule.run(
-      replaceromantoarab.run(getidfromname.run(name.trim()))
-    ),
-  ]);
-
-  let rating = 0;
-
-  if (mal[0] != undefined) {
-    rating = mal[0].rating;
-
-    if (details.animeTitle == null && stream.url == "/error") {
-      search = await anime_gogo_search.run(mal[0].animeTitle);
-      if (search[0]) {
-        id = search[0].animeId;
-        details = await anime_gogo_details.run(id);
-
-        stream = await anime_stream.run(id, req.params.episode);
+  
+    if (name.includes(",")) {
+      name = name.split(",")[1];
+    }
+    if (name.length >= 100) {
+      name = name.substring(0, name.length - (name.length - 100));
+    }
+  
+    let [mal, data_schedule] = await Promise.all([
+      anime_mal_search.run(name),
+      anime_data_schedule.run(
+        replaceromantoarab.run(getidfromname.run(name.trim()))
+      ),
+    ]);
+  
+    let rating = 0;
+  
+    if (mal[0] != undefined) {
+      rating = mal[0].rating;
+  
+      if (details.animeTitle == null && stream.url == "/error") {
+        search = await anime_gogo_search.run(mal[0].animeTitle);
+        if (search[0]) {
+          id = search[0].animeId;
+          details = await anime_gogo_details.run(id);
+  
+          stream = await anime_stream.run(id, req.params.episode);
+        }
       }
     }
-  }
-
-  res.render("pages/watch.ejs", {
+  await savedata.run(collection,{id: req.params.id,episode: req.params.episode,time: Date.now() / 1000, data: {
     stream: stream,
     rush_stream: rush_stream,
     details: details,
@@ -176,7 +188,19 @@ app.get("/watch/:id/:episode", async (req, res) => {
     rating: rating,
     episode: req.params.episode,
     new_ep: data_schedule,
-  });
+  }})
+    res.render("pages/watch.ejs", {
+      stream: stream,
+      rush_stream: rush_stream,
+      details: details,
+      mal_search: mal,
+      rating: rating,
+      episode: req.params.episode,
+      new_ep: data_schedule,
+    });
+  }
+  
+  await client.close();
 });
 
 /**
