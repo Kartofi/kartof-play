@@ -33,7 +33,7 @@ const anime_search_rush = require("./utils/animerush/anime-search");
 //Caching
 const checkid = require("./utils/caching/checkid")
 const savedata = require("./utils/caching/savedata")
-
+const checheverything  = require("./utils/caching/cache_everyepisode")
 app.use(express.static("./views/src"));
 app.get("/error", async (req, res) => {
   res.render("pages/error.ejs");
@@ -85,9 +85,10 @@ app.get("/watch/:id/:episode", async (req, res) => {
   await client.connect();
   const db = client.db(dbName);
   let collection = db.collection("Watch_Cach")
+  checheverything.run(collection, id)
   let checkid_data = await checkid.run(collection, id, req.params.episode);
 
-  if (checkid_data != null && (Date.now() / 1000) - checkid_data.time > 10) {
+  if (checkid_data != null && (Date.now() / 1000) - checkid_data.time < 10) {
     res.render("pages/watch.ejs", {
       stream: checkid_data.data.stream,
       rush_stream: checkid_data.data.rush_stream,
@@ -180,6 +181,7 @@ app.get("/watch/:id/:episode", async (req, res) => {
         }
       }
     }
+ 
   await savedata.run(collection,{id: req.params.id,episode: req.params.episode,time: Date.now() / 1000, data: {
     stream: stream,
     rush_stream: rush_stream,
