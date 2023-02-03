@@ -94,9 +94,10 @@ app.get("/watch/:id/:episode", async (req, res) => {
   if (details.totalEpisodes) {
     episodes_max = details.totalEpisodes;
   }
+  
   let checkid_data = await checkid.run(client, id, episodes_max);
 
-  if (checkid_data != null && Date.now() / 1000 - checkid_data.time < 3600) {
+  if (checkid_data != null && (Date.now() / 1000 - checkid_data.time < 3600 || checkid_data.data.stream[checkid_data.data.stream.length - 1].url != "/error")) {
     let episode_index = req.params.episode - 1;
     let stream;
     let rush_stream;
