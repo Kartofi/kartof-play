@@ -34,6 +34,7 @@ const anime_search_rush = require("./utils/animerush/anime-search");
 const checkid = require("./utils/caching/checkid");
 const savedata = require("./utils/caching/savedata");
 const checheverything = require("./utils/caching/cache_everyepisode");
+const cache_main = require("./utils/caching/cache_mainpage")
 app.use(express.static("./views/src"));
 app.get("/error", async (req, res) => {
   res.render("pages/error.ejs");
@@ -42,16 +43,13 @@ app.get("/error", async (req, res) => {
 app.get("/", async (req, res) => {
   //let started = new Timestamp(new Date());
 
-  let [data, popular, recent] = await Promise.all([
-    anime_schedule.run(),
-    anime_gogo_popular.run(1),
-    anime_gogo_recent.run(1),
-  ]);
+  
+  let data = await cache_main.run(client);
   //console.log((Timestamp(new Date()) - started) / 1000);
   res.render("pages/index.ejs", {
-    data: data,
-    popular: popular,
-    recent: recent,
+    data: data.data,
+    popular: data.popular,
+    recent: data.recent,
   });
 });
 app.get("/search/:keyword/:source", async (req, res) => {

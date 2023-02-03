@@ -33,6 +33,7 @@ module.exports = {
       let episodes = data.episodes;
 
       if (episodes_max - episodes > 0) {
+        let watch_id = id;
         if (details.watch_id != undefined) {
           watch_id = details.watch_id;
         }
