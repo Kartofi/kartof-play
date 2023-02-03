@@ -101,16 +101,17 @@ app.get("/watch/:id/:episode", async (req, res) => {
     let stream;
     let rush_stream;
     if (episode_index >= checkid_data.data.stream.length) {
-      stream = checkid_data.data.stream[checkid_data.data.stream.lengt - 1];
+      stream =  {url: "/error"};
     } else {
       stream = checkid_data.data.stream[episode_index];
     }
     if (episode_index >= checkid_data.data.rush_stream.length) {
       rush_stream =
-        checkid_data.data.rush_stream[checkid_data.data.rush_stream.lengt - 1];
+        {url: "/error"};
     } else {
       rush_stream = checkid_data.data.rush_stream[episode_index];
     }
+    
     res.render("pages/watch.ejs", {
       stream: stream,
       rush_stream: rush_stream,
