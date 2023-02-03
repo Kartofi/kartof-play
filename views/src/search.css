@@ -16,7 +16,7 @@ select {
 
 @media screen and (max-width: 600px) {
   .card {
-    width: 95%;
+    width: 100%;
   }
   input,
   option,

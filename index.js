@@ -123,6 +123,7 @@ app.get("/watch/:id/:episode", async (req, res) => {
       new_ep: checkid_data.data.new_ep,
     });
   } else {
+    let watch_id = id;
     if (details.watch_id != undefined) {
       watch_id = details.watch_id;
     }
