@@ -35,6 +35,11 @@ module.exports = {
         data = data1;
         popular = popular1;
         recent = recent1;
+        await collection.deleteMany({date: {
+          day: date.getDate(),
+          month: date.getMonth(),
+          year: date.getFullYear(),
+        }})
         await collection.insertOne({
             timespam: Date.now(),
             date: {

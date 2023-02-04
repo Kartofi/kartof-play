@@ -86,16 +86,16 @@ app.get("/watch/:id/:episode", async (req, res) => {
   if (search[0]) {
     id = search[0].animeId;
   }
-
+let saveid = id;
   let details = await anime_gogo_details.run(id);
   let episodes_max = req.params.episode;
   if (details.totalEpisodes) {
     episodes_max = details.totalEpisodes;
   }
-  
+ 
   let checkid_data = await checkid.run(client, id, episodes_max);
-
-  if (checkid_data != null && (Date.now() / 1000 - checkid_data.time < 3600 || checkid_data.data.stream[checkid_data.data.stream.length - 1].url != "/error")) {
+ 
+  if (checkid_data != null && (Date.now() / 1000 - checkid_data.time < 3600 && checkid_data.data.stream[checkid_data.data.stream.length - 1].url != "/error")) {
     let episode_index = req.params.episode - 1;
     let stream;
     let rush_stream;
@@ -207,7 +207,7 @@ app.get("/watch/:id/:episode", async (req, res) => {
       episode: req.params.episode,
       new_ep: data_schedule,
     });
-    await checheverything.run(client, id, episodes_max, details, search, mal);
+    await checheverything.run(client, saveid, episodes_max, details, search, mal);
   }
 });
 

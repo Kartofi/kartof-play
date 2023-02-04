@@ -32,7 +32,7 @@ module.exports = {
       let id = id1;
       let episodes = data.episodes;
 
-      if (episodes_max - episodes > 0) {
+      if (episodes_max - episodes > 0 || data.data.stream[data.data.stream.length - 1].url == "/error") {
         let watch_id = id;
         if (details.watch_id != undefined) {
           watch_id = details.watch_id;
@@ -98,9 +98,18 @@ module.exports = {
           data.data.stream.push(stream);
           data.data.rush_stream.push(rush_stream);
         }
+
+        if (data.data.stream[data.data.stream.length - 1].url == "/error") {
+          let stream = await anime_stream.run(watch_id, data.data.stream.length - 1);
+
+          if (stream.url == "/error" || stream.url == undefined) {
+            stream = await anime_stream.run(id, data.data.stream.length - 1);
+          }
+          data.data.stream[data.data.stream.length - 1] = stream;
+        }
         data.episodes = episodes_max;
         data.time = Date.now() / 1000;
-      }
+      } 
       await savedata.run(client, data);
     } else {
       let search = await anime_gogo_search.run(id1.replaceAll("-", " "));
