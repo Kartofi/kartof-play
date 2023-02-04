@@ -21,7 +21,7 @@ module.exports = {
     let popular;
     let recent;
    
-    if (database != null && (Date.now() - database.timespam )/1000< 1800  ) {
+    if (database != null && (Date.now() - database.timespam )/1000< 600  ) {
         data = database.data;
         popular = database.popular;
         recent = database.recent;
