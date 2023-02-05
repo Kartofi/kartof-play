@@ -32,7 +32,7 @@ module.exports = {
       let id = id1;
       let episodes = data.episodes;
 
-      if (episodes_max - episodes > 0 || data.data.stream[data.data.stream.length - 1].url == "/error") {
+      if (episodes_max - episodes > 0 || data.data.stream[data.data.stream.length - 1] != null && data.data.stream[data.data.stream.length - 1].url == "/error") {
         let watch_id = id;
         if (details.watch_id != undefined) {
           watch_id = details.watch_id;
