@@ -4,9 +4,12 @@ module.exports = {
 
     const db = client.db("Kartof-PLay");
     let collection = db.collection("Watch_Cach")
-    let data = await collection.findOne({id: data1.id, episode: data1.episode});
+    let data = await collection.findOne({id: data1.id, episodes: data1.episodes});
+
     if (data != null) {
-      await collection.updateOne({id: data1.id, episode: data1.episode},{ $set: data1});
+
+      await collection.updateOne({id: data1.id, episodes: data1.episodes},{ $set: data1});
+     
     }else {
       await collection.insertOne(data1);
     }

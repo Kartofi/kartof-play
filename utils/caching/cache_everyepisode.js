@@ -27,7 +27,7 @@ module.exports = {
     let collection = db.collection("Watch_Cach");
 
     let data = await collection.findOne({ id: id1 });
-    
+
     if (data != null) {
       let id = id1;
       let episodes = data.episodes;
@@ -108,7 +108,8 @@ module.exports = {
           data.data.stream[data.data.stream.length - 1] = stream;
         }
         data.episodes = episodes_max;
-        data.time = Date.now() / 1000;
+        data.time = Date.now();
+ 
       } 
       await savedata.run(client, data);
     } else {
@@ -212,7 +213,7 @@ module.exports = {
       }
       await savedata.run(client, {
         id: id1,
-        time: Date.now() / 1000,
+        time: Date.now(),
         episodes: episodes,
         data: {
           stream: episodes_gogo,
