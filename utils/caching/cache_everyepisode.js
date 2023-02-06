@@ -107,10 +107,12 @@ module.exports = {
           }
           data.data.stream[data.data.stream.length - 1] = stream;
         }
+        data.data.details = details
         data.episodes = episodes_max;
         data.time = Date.now();
  
       } 
+      
       await savedata.run(client, data);
     } else {
       let search = await anime_gogo_search.run(id1.replaceAll("-", " "));
@@ -211,6 +213,7 @@ module.exports = {
       } else {
         episodes = episodes_rush.length;
       }
+    
       await savedata.run(client, {
         id: id1,
         time: Date.now(),

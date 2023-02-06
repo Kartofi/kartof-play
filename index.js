@@ -95,6 +95,7 @@ let saveid = id;
  
   let checkid_data = await checkid.run(client, id, episodes_max);
  //Date.now() - checkid_data.time < 86400000
+ 
   if (checkid_data != null && checkid_data.data.stream[checkid_data.data.stream.length - 1].url != "/error") {
     
     let episode_index = req.params.episode - 1;
