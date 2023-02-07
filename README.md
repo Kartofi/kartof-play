@@ -7,9 +7,10 @@
 
 ![kartof-play](https://img.shields.io/github/languages/top/Kartofi/kartof-play)
 
-Site Where you can watch anime for free🪐
+  <a>Site Where you can watch anime for free🪐</a>
   
 </p>
+
 ## Still in dev
 <img aling="center" src="./imgs/preview.png">
 UI is trash but i will improve it
