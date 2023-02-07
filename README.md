@@ -1,9 +1,11 @@
 
 
 ## Kartof Play
+<p align="center">
+<img src="./views/src/images/kartof-play.png">
+</p>
 
-<img aling="center" src="./views/src/images/kartof-play.png">
-
+![kartof-play](https://img.shields.io/github/languages/top/Kartofi/kartof-play)
 
 Site Where you can watch anime for free🪐
 ## Still in dev
