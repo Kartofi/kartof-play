@@ -3,13 +3,13 @@
 ## Kartof Play
 <p align="center">
 <img src="./views/src/images/kartof-play.png">
-
+</p>
 
 ![kartof-play](https://img.shields.io/github/languages/top/Kartofi/kartof-play)
 
   <a>Site Where you can watch anime for free🪐</a>
   
-</p>
+
 
 ## Still in dev
 <img aling="center" src="./imgs/preview.png">
