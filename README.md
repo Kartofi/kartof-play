@@ -16,11 +16,11 @@
 UI is trash but i will improve it
 
 ## Load Times
-Home page  1s
+Home page  < 1 s (when cached)
 
 Search page with all 1s
 
-Watch page 3s
+Watch page < 1 s (when cached)
 
 ## Credits
 -[www.livechart.me](www.livechart.me)
