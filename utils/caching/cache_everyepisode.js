@@ -32,7 +32,14 @@ module.exports = {
       let id = id1;
       let episodes = data.episodes;
 
-      if (episodes_max - episodes > 0 || data.data.stream[data.data.stream.length - 1] != null && data.data.stream[data.data.stream.length - 1].url == "/error") {
+      if (
+        episodes_max - episodes > 0 ||
+        (data.data.stream[data.data.stream.length - 1] != null &&
+          data.data.stream[data.data.stream.length - 1].url == "/error") ||
+        (data.data.rush_stream[data.data.rush_stream.length - 1] != null &&
+          data.data.rush_stream[data.data.rush_stream.length - 1].url ==
+            "/error")
+      ) {
         let watch_id = id;
         if (details.watch_id != undefined) {
           watch_id = details.watch_id;
@@ -64,12 +71,13 @@ module.exports = {
               rush_stream.url == "/error" ||
               animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()
             ) {
-              for (let i = 0; i < animerunid.length; i++) {
+              for (let anime = 0; anime < animerunid.length; anime++) {
                 if (
-                  animerunid[i].animeTitle.toLowerCase() == name.toLowerCase()
+                  animerunid[anime].animeTitle.toLowerCase() ==
+                  name.toLowerCase()
                 ) {
                   rush_stream = await anime_stream_rush.run(
-                    animerunid[i].animeId,
+                    animerunid[anime].animeId,
                     i
                   );
 
@@ -100,19 +108,55 @@ module.exports = {
         }
 
         if (data.data.stream[data.data.stream.length - 1].url == "/error") {
-          let stream = await anime_stream.run(watch_id, data.data.stream.length - 1);
+          let stream = await anime_stream.run(
+            watch_id,
+            data.data.stream.length - 1
+          );
 
           if (stream.url == "/error" || stream.url == undefined) {
             stream = await anime_stream.run(id, data.data.stream.length - 1);
           }
           data.data.stream[data.data.stream.length - 1] = stream;
         }
-        data.data.details = details
+
+        if (
+          data.data.rush_stream[data.data.rush_stream.length - 1].url ==
+          "/error"
+        ) {
+          let rush_stream = { url: "/error" };
+
+          if (animerunid.length >= 1) {
+            rush_stream = await anime_stream_rush.run(
+              animerunid,
+              data.data.stream.length
+            );
+
+            if (
+              rush_stream.url == "/error" ||
+              animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()
+            ) {
+              for (let anime = 0; anime < animerunid.length; anime++) {
+                if (
+                  animerunid[anime].animeTitle.toLowerCase() ==
+                  name.toLowerCase()
+                ) {
+                  rush_stream = await anime_stream_rush.run(
+                    animerunid[anime].animeId,
+                    data.data.stream.length
+                  );
+
+                  break;
+                }
+              }
+            }
+          }
+          data.data.rush_stream[data.data.rush_stream.length - 1] = rush_stream;
+        }
+        data.data.details = details;
         data.episodes = episodes_max;
         data.time = Date.now();
- 
-      } 
-      
+      }
+
       await savedata.run(client, data);
     } else {
       let search = await anime_gogo_search.run(id1.replaceAll("-", " "));
@@ -213,7 +257,7 @@ module.exports = {
       } else {
         episodes = episodes_rush.length;
       }
-    
+
       await savedata.run(client, {
         id: id1,
         time: Date.now(),
