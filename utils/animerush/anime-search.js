@@ -29,7 +29,8 @@ module.exports = {
             animeId: id.split("/")[4],
             animeTitle: id.split("/")[4].replaceAll("-", " "),
             animeImg: "https:" + image,
-            source: "(AnimeRush)"
+            source: "(AnimeRush)",
+            watch_url: "/watch/" + id.split("/")[4] + "/1"
           });
           
         }

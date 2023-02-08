@@ -10,8 +10,8 @@ const url = process.env.mongodb;
 const client = new MongoClient(url);
 const dbName = "Kartof-PLay";
 
-global.rush_base_url = "https://www.animerush.tv/"
-global.gogo_base_url = "https://www1.gogoanime.bid/"
+global.rush_base_url = "https://www.animerush.tv/";
+global.gogo_base_url = "https://www1.gogoanime.bid/";
 //Anime Schedule
 const anime_schedule = require("./utils/anime_schedule/anime-schedule");
 const anime_data_schedule = require("./utils/anime_schedule/anime-data");
@@ -31,12 +31,13 @@ const replaceromantoarab = require("./utils/replaceromantoarab");
 const anime_stream_rush = require("./utils/animerush/anime-stream");
 const anime_id_rush = require("./utils/animerush/getidfromname");
 const anime_search_rush = require("./utils/animerush/anime-search");
+const anime_details_rush = require("./utils/animerush/anime-details");
 
 //Caching
 const checkid = require("./utils/caching/checkid");
 const savedata = require("./utils/caching/savedata");
 const checheverything = require("./utils/caching/cache_everyepisode");
-const cache_main = require("./utils/caching/cache_mainpage")
+const cache_main = require("./utils/caching/cache_mainpage");
 app.use(express.static("./views/src"));
 app.get("/error", async (req, res) => {
   res.render("pages/error.ejs");
@@ -45,7 +46,6 @@ app.get("/error", async (req, res) => {
 app.get("/", async (req, res) => {
   //let started = new Timestamp(new Date());
 
-  
   let data = await cache_main.run(client);
   //console.log((Timestamp(new Date()) - started) / 1000);
   res.render("pages/index.ejs", {
@@ -83,39 +83,57 @@ app.get("/search/:keyword/:source", async (req, res) => {
 app.get("/watch/:id/:episode", async (req, res) => {
   let id = req.params.id;
 
-  let search = await anime_gogo_search.run(req.params.id.replaceAll("-", " "));
+  let [search, search_rush] = await Promise.all([
+    anime_gogo_search.run(id.replaceAll("-", " ")),
+    anime_search_rush.run(id.replaceAll("-", " ")),
+  ]);
+  let rush_search_id = id;
 
   if (search[0]) {
     id = search[0].animeId;
   }
-let saveid = id;
-  let details = await anime_gogo_details.run(id);
+  if (search_rush[0]) {
+    rush_search_id = search_rush[0].animeId;
+  }
+  let saveid = id;
+  let [details, details_rush] = await Promise.all([
+    anime_gogo_details.run(id),
+    anime_details_rush.run(rush_search_id),
+  ]);
   let episodes_max = req.params.episode;
   if (details.totalEpisodes) {
     episodes_max = details.totalEpisodes;
   }
- 
+  if (details_rush.totalEpisodes && details_rush.totalEpisodes > episodes_max) {
+    episodes_max = details_rush.totalEpisodes;
+  }
+  if (details.animeTitle == null) {
+    details = details_rush;
+  }
   let checkid_data = await checkid.run(client, id, episodes_max);
- //Date.now() - checkid_data.time < 86400000
+  //Date.now() - checkid_data.time < 86400000
 
- 
-  if (checkid_data != null && checkid_data.data.stream[checkid_data.data.stream.length - 1].url != "/error"&& checkid_data.data.rush_stream[checkid_data.data.rush_stream.length - 1].url != "/error") {
-    
+  if (
+    checkid_data != null &&
+    checkid_data.data.stream[checkid_data.data.stream.length - 1].url !=
+      "/error" &&
+    checkid_data.data.rush_stream[checkid_data.data.rush_stream.length - 1]
+      .url != "/error"
+  ) {
     let episode_index = req.params.episode - 1;
     let stream;
     let rush_stream;
     if (episode_index >= checkid_data.data.stream.length) {
-      stream =  {url: "/error"};
+      stream = { url: "/error" };
     } else {
       stream = checkid_data.data.stream[episode_index];
     }
     if (episode_index >= checkid_data.data.rush_stream.length) {
-      rush_stream =
-        {url: "/error"};
+      rush_stream = { url: "/error" };
     } else {
       rush_stream = checkid_data.data.rush_stream[episode_index];
     }
-    
+
     res.render("pages/watch.ejs", {
       stream: stream,
       rush_stream: rush_stream,
@@ -191,13 +209,14 @@ let saveid = id;
 
     if (mal[0] != undefined) {
       rating = mal[0].rating;
-
+  
       if (details.animeTitle == null && stream.url == "/error") {
         search = await anime_gogo_search.run(mal[0].animeTitle);
         if (search[0]) {
           id = search[0].animeId;
+        
           details = await anime_gogo_details.run(id);
-
+        
           stream = await anime_stream.run(id, req.params.episode);
         }
       }
@@ -212,7 +231,15 @@ let saveid = id;
       episode: req.params.episode,
       new_ep: data_schedule,
     });
-    await checheverything.run(client, saveid, episodes_max, details, search, mal);
+    
+    await checheverything.run(
+      client,
+      saveid,
+      episodes_max,
+      details,
+      search,
+      mal
+    );
   }
 });
 
