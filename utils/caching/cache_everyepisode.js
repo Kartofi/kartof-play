@@ -112,7 +112,7 @@ module.exports = {
             let stream = await anime_stream.run(watch_id, i);
 
             if (stream.url == "/error" || stream.url == undefined) {
-              stream = await anime_stream.run(id, i);
+              stream = await anime_stream.run(id, i + 1);
             }
             data.data.stream[i] = stream;
           }
@@ -245,8 +245,8 @@ module.exports = {
           }
         }
         for (let i = 1; i < details.totalEpisodes + 1; i++) {
-          if (details.animeTitle == null && episodes_gogo[I].url == "/error") {
-            episodes_gogo[I] = await anime_stream.run(id, i);
+          if (details.animeTitle == null && episodes_gogo[i].url == "/error") {
+            episodes_gogo[i] = await anime_stream.run(id, i);
           }
         }
       }
