@@ -10,7 +10,7 @@ module.exports = {
   run: async function () {
     let data =  [];
     let response = await fetch(
-      "https://www.animerush.tv/latest-anime-episodes/"
+      rush_base_url + "latest-anime-episodes/"
     );
     const body = await response.text();
 
@@ -22,7 +22,7 @@ module.exports = {
     children.each(function(index, element) {
         
         let id = $(element).find("a")[0].attribs.href.split("/")[1].split("-episode-")
-        let img = "https://www.animerush.tv/" + $(element).find("img")[0].attribs.src
+        let img = rush_base_url + $(element).find("img")[0].attribs.src
       
         data.push({
             animeId: id[0].toLowerCase(),

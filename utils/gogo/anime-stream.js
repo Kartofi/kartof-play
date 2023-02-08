@@ -13,7 +13,7 @@ module.exports = {
     };
 
     let response = await fetch(
-      "https://gogoanime.tel/" +
+      gogo_base_url +
         id +
         "-episode-" +
         episode

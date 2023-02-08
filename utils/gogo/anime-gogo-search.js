@@ -10,7 +10,7 @@ module.exports = {
   run: async function (name) {
     let data = [];
     let response = await fetch(
-      "https://gogoanime.tel/search.html?keyword=" + name
+      gogo_base_url + "search.html?keyword=" + name
     );
 
     const body = await response.text();

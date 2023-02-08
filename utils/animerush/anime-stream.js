@@ -10,7 +10,7 @@ module.exports = {
   run: async function (name, episode) {
     let data = {};
     let response = await fetch(
-      "https://www.animerush.tv/" + name + "-episode-" + episode
+      rush_base_url + name + "-episode-" + episode
     );
     const body = await response.text();
 

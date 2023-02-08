@@ -10,7 +10,8 @@ module.exports = {
   run: async function (keyword) {
     let data =  [];
     let response = await fetch(
-      "https://www.animerush.tv/search.php?searchquery=" + keyword
+      
+      rush_base_url +"search.php?searchquery=" + keyword
     );
     const body = await response.text();
 

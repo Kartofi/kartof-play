@@ -10,6 +10,8 @@ const url = process.env.mongodb;
 const client = new MongoClient(url);
 const dbName = "Kartof-PLay";
 
+global.rush_base_url = "https://www.animerush.tv/"
+global.gogo_base_url = "https://www1.gogoanime.bid/"
 //Anime Schedule
 const anime_schedule = require("./utils/anime_schedule/anime-schedule");
 const anime_data_schedule = require("./utils/anime_schedule/anime-data");

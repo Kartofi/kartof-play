@@ -8,7 +8,7 @@ module.exports = {
   },
   run: async function (page) {
     let data = [];
-    let response = await fetch("https://gogoanime.tel/popular.html?page=" + page);
+    let response = await fetch(gogo_base_url + "popular.html?page=" + page);
     let body = await response.text();
 
     let $ = cheerio.load(body);

@@ -10,7 +10,7 @@ module.exports = {
     
     let data = {};
     let response = await fetch(
-      "https://gogoanime.tel/category/" + id
+      gogo_base_url + "category/" + id
     );
 
     const body = await response.text();
