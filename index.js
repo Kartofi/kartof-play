@@ -8,7 +8,6 @@ require("dotenv").config();
 
 const url = process.env.mongodb;
 const client = new MongoClient(url);
-const dbName = "Kartof-PLay";
 
 global.rush_base_url = "https://www.animerush.tv/";
 global.gogo_base_url = "https://gogoanime.tel/";
@@ -209,15 +208,15 @@ app.get("/watch/:id/:episode", async (req, res) => {
 
     if (mal[0] != undefined) {
       rating = mal[0].rating;
-  
+
       if (details.animeTitle == null && stream.url == "/error") {
         search = await anime_gogo_search.run(mal[0].animeTitle);
         if (search[0]) {
           id = search[0].animeId;
-        
-          details = await anime_gogo_details.run(id);
-        
-          stream = await anime_stream.run(id, req.params.episode);
+          [details, stream] = await Promise.all([
+            anime_gogo_details.run(id),
+            anime_stream.run(id, req.params.episode),
+          ]);
         }
       }
     }
@@ -231,7 +230,7 @@ app.get("/watch/:id/:episode", async (req, res) => {
       episode: req.params.episode,
       new_ep: data_schedule,
     });
-    
+
     await checheverything.run(
       client,
       saveid,

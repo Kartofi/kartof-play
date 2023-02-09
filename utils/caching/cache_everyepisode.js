@@ -117,7 +117,7 @@ module.exports = {
             data.data.stream[i] = stream;
           }
         }
-      
+        
         for (let i = 0; i < data.data.rush_stream.length; i++) {
           if (
             data.data.rush_stream[i].url ==
@@ -127,7 +127,7 @@ module.exports = {
   
             if (animerunid.length >= 1) {
               rush_stream = await anime_stream_rush.run(
-                animerunid[0],
+                animerunid[0].animeId,
                 i + 1
               );
   
@@ -240,14 +240,22 @@ module.exports = {
           search = await anime_gogo_search.run(mal[0].animeTitle);
           if (search[0]) {
             id = search[0].animeId;
-
             details = await anime_gogo_details.run(id);
           }
         }
         for (let i = 1; i < details.totalEpisodes + 1; i++) {
+          
           if (details.animeTitle == null && episodes_gogo[i].url == "/error") {
-            episodes_gogo[i] = await anime_stream.run(id, i);
+            
+              
+              if (episodes_gogo[i].length - i == 2) {
+                [episodes_gogo[i], episodes_gogo[i + 1]] = await Promise.all([anime_stream.run(id, i), anime_stream.run(id, i + 1)])
+
+              }else {
+                episodes_gogo[i] = await anime_stream.run(id, i);
+              }
           }
+          
         }
       }
       let episodes = 0;
