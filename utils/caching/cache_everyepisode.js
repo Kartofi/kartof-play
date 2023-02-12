@@ -55,7 +55,7 @@ module.exports = {
 
         let animerunid = await anime_search_rush.run(name);
 
-        for (let i = 0; i < episodes_max - episodes; i++) {
+        for (let i = 1; i < episodes_max - episodes + 1; i++) {
           let stream = await anime_stream.run(watch_id, i);
 
           if (stream.url == "/error" || stream.url == undefined) {
@@ -106,31 +106,27 @@ module.exports = {
           data.data.rush_stream.push(rush_stream);
         }
 
-        for (let i = 0; i < data.data.stream.length; i++) {
-          
-          if (data.data.stream[i].url == "/error") {
+        for (let i = 1; i < data.data.stream.length + 1; i++) {
+          if (data.data.stream[i - 1].url == "/error") {
             let stream = await anime_stream.run(watch_id, i);
 
             if (stream.url == "/error" || stream.url == undefined) {
               stream = await anime_stream.run(id, i + 1);
             }
-            data.data.stream[i] = stream;
+            data.data.stream[i - 1] = stream;
           }
         }
-        
-        for (let i = 0; i < data.data.rush_stream.length; i++) {
-          if (
-            data.data.rush_stream[i].url ==
-            "/error"
-          ) {
+
+        for (let i = 1; i < data.data.rush_stream.length + 1; i++) {
+          if (data.data.rush_stream[i - 1].url == "/error") {
             let rush_stream = { url: "/error" };
-  
+
             if (animerunid.length >= 1) {
               rush_stream = await anime_stream_rush.run(
                 animerunid[0].animeId,
                 i + 1
               );
-  
+
               if (
                 rush_stream.url == "/error" ||
                 animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()
@@ -144,13 +140,13 @@ module.exports = {
                       animerunid[anime].animeId,
                       i + 1
                     );
-  
+
                     break;
                   }
                 }
               }
             }
-            data.data.rush_stream[i] = rush_stream;
+            data.data.rush_stream[i - 1] = rush_stream;
           }
         }
 
@@ -244,18 +240,16 @@ module.exports = {
           }
         }
         for (let i = 1; i < details.totalEpisodes + 1; i++) {
-          
           if (details.animeTitle == null && episodes_gogo[i].url == "/error") {
-            
-              
-              if (episodes_gogo[i].length - i == 2) {
-                [episodes_gogo[i], episodes_gogo[i + 1]] = await Promise.all([anime_stream.run(id, i), anime_stream.run(id, i + 1)])
-
-              }else {
-                episodes_gogo[i] = await anime_stream.run(id, i);
-              }
+            if (episodes_gogo[i].length - i == 2) {
+              [episodes_gogo[i], episodes_gogo[i + 1]] = await Promise.all([
+                anime_stream.run(id, i),
+                anime_stream.run(id, i + 1),
+              ]);
+            } else {
+              episodes_gogo[i] = await anime_stream.run(id, i);
+            }
           }
-          
         }
       }
       let episodes = 0;
