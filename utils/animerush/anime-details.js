@@ -19,7 +19,7 @@ module.exports = {
       genres: [],
     };
     let response = await fetch(
-      rush_base_url + "anime@@" + getidfromname.run(name)
+      rush_base_url + "anime/" + getidfromname.run(name)
     );
     const body = await response.text();
 

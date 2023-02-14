@@ -2,7 +2,7 @@ const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const { MongoClient, Timestamp } = require("mongodb");
 require("dotenv").config();
 
@@ -54,7 +54,7 @@ app.get("/", async (req, res) => {
   });
 });
 app.get("/search/:keyword/:source", async (req, res) => {
-  let data = {mal: [], gogo: [], rush: []};
+  let data;
   if (req.params.source == "GoGoAnime") {
     data = await anime_gogo_search.run(req.params.keyword);
   } else if (req.params.source == "MAL") {
@@ -67,9 +67,9 @@ app.get("/search/:keyword/:source", async (req, res) => {
       anime_search_rush.run(req.params.keyword),
       anime_mal_search.run(req.params.keyword),
     ]);
-    data.mal = data1;
-    data.gogo = gogosearch;
-    data.rush = rushsearch;
+    data = data1;
+    data = data.concat(gogosearch);
+    data = data.concat(rushsearch);
   }
 
   res.render("pages/search.ejs", {
@@ -118,10 +118,12 @@ app.get("/watch/:id/:episode", async (req, res) => {
   }
   if (details_rush.totalEpisodes && details_rush.totalEpisodes > episodes_max) {
     episodes_max = details_rush.totalEpisodes;
+    details = details_rush;
   }
   if (details.animeTitle == null) {
     details = details_rush;
   }
+ 
   let checkid_data = await checkid.run(client, id, episodes_max);
   //Date.now() - checkid_data.time < 86400000
 
