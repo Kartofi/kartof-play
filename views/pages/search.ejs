@@ -9,8 +9,11 @@
     <meta content="Kartof Play" property="og:title" />
     <meta content="Searched for <%=keyword %>" property="og:description" />
     <meta content="sssr.gq" property="og:url" />
-    <meta content="https://github.com/Kartofi/kartof-play/raw/master/imgs/preview.png" property="og:image" />
-    <meta name="twitter:card" content="summary_large_image">
+    <meta
+      content="https://github.com/Kartofi/kartof-play/raw/master/imgs/preview.png"
+      property="og:image"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta content="#43B581" data-react-helmet="true" name="theme-color" />
   </head>
   <link href="/search.css" rel="stylesheet" type="text/css" />
@@ -41,34 +44,70 @@
   </script>
   <body onload="load()">
     <div class="nav_bar">
-      <a href ="/">
-        <img class="logo"  src="/images/kartof-play.png">
+      <a href="/">
+        <img class="logo" src="/images/kartof-play.png" />
       </a>
-        
-        <a class="title" href ="/">Kartof Play</a>
-        <center>
-          <input id="keyword" type="search" onsearch="search()" />
-          <button class="abutton" onclick="search()">Search</button>
-          <select id="select">
-            <option>All</option>
-            <option>GoGoAnime</option>
-            <option>AnimeRush</option>
-            <option>MAL</option>
-            
-          </select>
-        </center>
 
+      <a class="title" href="/">Kartof Play</a>
+      <center>
+        <input id="keyword" type="search" onsearch="search()" />
+        <button class="abutton" onclick="search()">Search</button>
+        <select id="select">
+          <option>All</option>
+          <option>GoGoAnime</option>
+          <option>AnimeRush</option>
+          <option>MAL</option>
+        </select>
+      </center>
     </div>
-   
-    <br />
-    <br />
+    <center> 
+      <a style=" font-size: 40px;">GoGoAnime</a>
+    </center>
     <div class="container">
-      <% data.forEach(function(element) { %>
-        <div onclick="location.href='<%= element.watch_url %>';" class="card">
+      <% data.gogo.forEach(function(element) { %>
+      <div onclick="location.href='<%= element.watch_url %>';" class="card">
         <img class="card-img" src="<%= element.animeImg %>" />
         <br />
         <div class="data">
-          <a style="color: rgb(223, 223, 255);"><%= element.source %></a>
+          <a style="color: rgb(223, 223, 255)"><%= element.source %></a>
+          <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
+          <br />
+          <a class="important"><%= element.rating %>🌟</a>
+        </div>
+      </div>
+
+      <% }) %>
+    </div>
+    <br>
+    <center> 
+      <a style=" font-size: 40px;">AnimeRush</a>
+    </center>
+    <div class="container">
+      <% data.rush.forEach(function(element) { %>
+      <div onclick="location.href='<%= element.watch_url %>';" class="card">
+        <img class="card-img" src="<%= element.animeImg %>" />
+        <br />
+        <div class="data">
+          <a style="color: rgb(223, 223, 255)"><%= element.source %></a>
+          <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
+          <br />
+          <a class="important"><%= element.rating %>🌟</a>
+        </div>
+      </div>
+
+      <% }) %>
+    </div>
+    <br>
+    <center> 
+      <a style=" font-size: 40px;">MAL</a>
+    </center>
+    <div class="container">
+      <% data.mal.forEach(function(element) { %>
+      <div onclick="location.href='<%= element.watch_url %>';" class="card">
+        <img class="card-img" src="<%= element.animeImg %>" />
+        <br />
+        <div class="data">
+          <a style="color: rgb(223, 223, 255)"><%= element.source %></a>
           <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
           <br />
           <a class="important"><%= element.rating %>🌟</a>

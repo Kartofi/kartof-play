@@ -54,7 +54,7 @@ app.get("/", async (req, res) => {
   });
 });
 app.get("/search/:keyword/:source", async (req, res) => {
-  let data;
+  let data = {mal: [], gogo: [], rush: []};
   if (req.params.source == "GoGoAnime") {
     data = await anime_gogo_search.run(req.params.keyword);
   } else if (req.params.source == "MAL") {
@@ -67,9 +67,9 @@ app.get("/search/:keyword/:source", async (req, res) => {
       anime_search_rush.run(req.params.keyword),
       anime_mal_search.run(req.params.keyword),
     ]);
-    data = data1;
-    data = data.concat(gogosearch);
-    data = data.concat(rushsearch);
+    data.mal = data1;
+    data.gogo = gogosearch;
+    data.rush = rushsearch;
   }
 
   res.render("pages/search.ejs", {
