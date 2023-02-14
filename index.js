@@ -92,7 +92,20 @@ app.get("/watch/:id/:episode", async (req, res) => {
     id = search[0].animeId;
   }
   if (search_rush[0]) {
-    rush_search_id = search_rush[0].animeId;
+    if (search_rush[0].animeId.toLowerCase() == id) {
+      rush_search_id = search_rush[0].animeId;
+    } else {
+      const mySentence = req.params.id;
+      const words = mySentence.split("-");
+
+      for (let i = 0; i < words.length; i++) {
+        if (words[i] != "") {
+          words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+        }
+      }
+
+      rush_search_id = words.join("-");
+    }
   }
   let saveid = id;
   let [details, details_rush] = await Promise.all([

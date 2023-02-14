@@ -19,7 +19,7 @@ module.exports = {
       genres: [],
     };
     let response = await fetch(
-      rush_base_url + "anime/" + getidfromname.run(name)
+      rush_base_url + "anime@@" + getidfromname.run(name)
     );
     const body = await response.text();
 
@@ -40,8 +40,10 @@ module.exports = {
     data.synopsis = desc;
 
     let episodes = $("div.episode_list");
-    data.totalEpisodes = episodes.length - 1;
+
+    data.totalEpisodes = episodes.length -1;
     for (let i = 1; i < episodes.length; i++) {
+
       data.episodesList.push({
         watchUrl: "/watch/" + getidfromname.run(name).toLowerCase() + "/" + i,
         episodeNum: i
