@@ -23,9 +23,11 @@ body {
 }
 .description_img {
   width: 100%;
+  
   grid-area: menu;
 }
 .description_img img {
+  border-radius: 10px;
   float: right;
 }
 .episode {

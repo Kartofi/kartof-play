@@ -49,6 +49,15 @@ module.exports = {
         episodeNum: i
       })
     }
+    let genres = $(
+      "#left-column > div.amin_box2 > div.desc_box_mid > div.cat_box_desc > a"
+    );
+    genres.each(function(index, el) {
+      data.genres.push(el.children[0].data)
+    })
+    let otherNames = $("div.cat_box_desc")
+    data.otherNames = otherNames.html().split("</h3>")[2].split(" <br>")[0].trim().split(", ");
+    
     return data;
   },
 };
