@@ -44,7 +44,6 @@ app.get("/error", async (req, res) => {
 
 app.get("/", async (req, res) => {
   //let started = new Timestamp(new Date());
-  let anime_details_rus = await anime_details_rush.run("Toutotsu-ni-Egypt-Shin-2");
   let data = await cache_main.run(client);
   //console.log((Timestamp(new Date()) - started) / 1000);
   res.render("pages/index.ejs", {
@@ -123,7 +122,7 @@ app.get("/watch/:id/:episode", async (req, res) => {
   if (details.animeTitle == null) {
     details = details_rush;
   }
- 
+
   let checkid_data = await checkid.run(client, id, episodes_max);
   //Date.now() - checkid_data.time < 86400000
 
