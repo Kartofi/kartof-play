@@ -7,7 +7,7 @@ module.exports = {
       return undefined;
     }
     return name
-
+    .replaceAll(".", "")
       .replaceAll(":", "-")
       .replaceAll("♡", "")
       .replaceAll("?", "")

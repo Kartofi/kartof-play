@@ -10,6 +10,7 @@ module.exports = {
     return name
       .toLowerCase()
       .replaceAll(":", "-")
+      .replaceAll(".", "")
       .replaceAll("♡", "")
       .replaceAll("?", "")
       .replaceAll("!", "")
