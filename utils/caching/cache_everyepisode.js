@@ -111,7 +111,7 @@ module.exports = {
             let stream = await anime_stream.run(watch_id, i);
 
             if (stream.url == "/error" || stream.url == undefined) {
-              stream = await anime_stream.run(id, i + 1);
+              stream = await anime_stream.run(id, i);
             }
             data.data.stream[i - 1] = stream;
           }
