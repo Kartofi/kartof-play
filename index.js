@@ -53,22 +53,22 @@ app.get("/", async (req, res) => {
   });
 });
 app.get("/search/:keyword/:source", async (req, res) => {
-  let data;
+  let data = { mal: [], gogo: [], rush: []};
   if (req.params.source == "GoGoAnime") {
-    data = await anime_gogo_search.run(req.params.keyword);
+    data.gogo = await anime_gogo_search.run(req.params.keyword);
   } else if (req.params.source == "MAL") {
-    data = await anime_mal_search.run(req.params.keyword);
+    data.mal = await anime_mal_search.run(req.params.keyword);
   } else if (req.params.source == "AnimeRush") {
-    data = await anime_search_rush.run(req.params.keyword);
+    data.rush = await anime_search_rush.run(req.params.keyword);
   } else {
     let [gogosearch, rushsearch, data1] = await Promise.all([
       anime_gogo_search.run(req.params.keyword),
       anime_search_rush.run(req.params.keyword),
       anime_mal_search.run(req.params.keyword),
     ]);
-    data = data1;
-    data = data.concat(gogosearch);
-    data = data.concat(rushsearch);
+    data.mal = data1;
+    data.gogo = gogosearch;
+    data.rush = rushsearch;
   }
 
   res.render("pages/search.ejs", {
