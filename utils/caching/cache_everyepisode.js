@@ -55,7 +55,7 @@ module.exports = {
 
         let animerunid = await anime_search_rush.run(name);
 
-        for (let i = 1; i < episodes_max - episodes + 1; i++) {
+        for (let i = episodes; i < episodes_max; i++) {
           let stream = await anime_stream.run(watch_id, i);
 
           if (stream.url == "/error" || stream.url == undefined) {
