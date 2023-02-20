@@ -168,12 +168,12 @@
             <a>Rating: </a>
             <a style="color: yellow"><%= rating %>✨</a>
             <br>
-            <% if(details.otherNames[0] != '') { %>
+            <% if(details.otherNames.length > 0) { %>
               <a>Other Names: </a>
               <a id="othernames_data" onclick="show_othernames()">Show</details></a>
             <% } %>
             <br>
-            <% if(details.genres[0] != '') { %>
+            <% if(details.genres.length > 0) { %>
               <a>Genres: </a>
               <a id="genres_data" onclick="show_genres()">Show</details></a>
             <% } %>
