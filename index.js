@@ -12,7 +12,6 @@ const client = new MongoClient(url);
 global.rush_base_url = "https://www.animerush.tv/";
 global.gogo_base_url = "https://gogoanime.tel/";
 //Anime Schedule
-const anime_schedule = require("./utils/anime_schedule/anime-schedule");
 const anime_data_schedule = require("./utils/anime_schedule/anime-data");
 //MAL
 const anime_mal_search = require("./utils/mal/anime-search");
@@ -21,14 +20,11 @@ const anime_mal_search = require("./utils/mal/anime-search");
 const anime_gogo_search = require("./utils/gogo/anime-gogo-search");
 const anime_stream = require("./utils/gogo/anime-stream");
 const anime_gogo_details = require("./utils/gogo/anime-details");
-const anime_gogo_popular = require("./utils/gogo/anime-popular");
-const anime_gogo_recent = require("./utils/gogo/anime-recent");
 const getidfromname = require("./utils/getidfromname");
 
 //RUSH ANIME
 const replaceromantoarab = require("./utils/replaceromantoarab");
 const anime_stream_rush = require("./utils/animerush/anime-stream");
-const anime_id_rush = require("./utils/animerush/getidfromname");
 const anime_search_rush = require("./utils/animerush/anime-search");
 const anime_details_rush = require("./utils/animerush/anime-details");
 
@@ -53,7 +49,7 @@ app.get("/", async (req, res) => {
   });
 });
 app.get("/search/:keyword/:source", async (req, res) => {
-  let data = { mal: [], gogo: [], rush: []};
+  let data = { mal: [], gogo: [], rush: [] };
   if (req.params.source == "GoGoAnime") {
     data.gogo = await anime_gogo_search.run(req.params.keyword);
   } else if (req.params.source == "MAL") {
@@ -80,15 +76,23 @@ app.get("/search/:keyword/:source", async (req, res) => {
 
 app.get("/watch/:id/:episode", async (req, res) => {
   let id = req.params.id;
-
   let [search, search_rush] = await Promise.all([
     anime_gogo_search.run(id.replaceAll("-", " ")),
     anime_search_rush.run(id.replaceAll("-", " ")),
   ]);
   let rush_search_id = id;
-
-  if (search[0]) {
-    id = search[0].animeId;
+  if (search.length >= 1) {
+    let done = false;
+    for (let index = 0; index < search.length; index++) {
+      if (search[index].animeId == req.params.id) {
+        id = search[index].animeId;
+        done = true;
+        break;
+      }
+    }
+    if (done == false) {
+      id = search[0].animeId;
+    }
   }
   if (search_rush[0]) {
     if (search_rush[0].animeId.toLowerCase() == id) {
