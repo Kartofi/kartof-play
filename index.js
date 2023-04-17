@@ -132,8 +132,11 @@ app.get("/watch/:id/:episode", async (req, res) => {
 
   if (
     checkid_data != null &&
+    checkid_data.data.stream[checkid_data.data.stream.length - 1] != null &&
     checkid_data.data.stream[checkid_data.data.stream.length - 1].url !=
       "/error" &&
+    checkid_data.data.rush_stream[checkid_data.data.rush_stream.length - 1] !=
+      null &&
     checkid_data.data.rush_stream[checkid_data.data.rush_stream.length - 1]
       .url != "/error"
   ) {
