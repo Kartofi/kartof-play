@@ -13,6 +13,7 @@ global.rush_base_url = "https://www.animerush.tv/";
 global.gogo_base_url = "https://gogoanime.tel/";
 //Anime Schedule
 const anime_data_schedule = require("./utils/anime_schedule/anime-data");
+const anime_schedule = require("./utils/anime_schedule/anime-schedule");
 //MAL
 const anime_mal_search = require("./utils/mal/anime-search");
 
@@ -33,6 +34,7 @@ const checkid = require("./utils/caching/checkid");
 const savedata = require("./utils/caching/savedata");
 const checheverything = require("./utils/caching/cache_everyepisode");
 const cache_main = require("./utils/caching/cache_mainpage");
+
 app.use(express.static("./views/src"));
 app.get("/error", async (req, res) => {
   res.render("pages/error.ejs");
