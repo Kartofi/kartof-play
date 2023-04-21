@@ -22,7 +22,15 @@ const savedata = require("./savedata");
 
 module.exports = {
   data: "Cache",
-  run: async function (client, id1, episodes_max, details, search, mal) {
+  run: async function (
+    client,
+    id1,
+    episodes_max,
+    details,
+    search,
+    mal,
+    rush_id
+  ) {
     const db = client.db("Kartof-PLay");
     let collection = db.collection("Watch_Cach");
 
@@ -62,9 +70,9 @@ module.exports = {
             stream = await anime_stream.run(id, i);
           }
 
-          let rush_stream = { url: "/error" };
+          let rush_stream = await anime_stream_rush.run(rush_id, i);
 
-          if (animerunid.length >= 1) {
+          if (rush_stream.url == "/error" && animerunid.length >= 1) {
             rush_stream = await anime_stream_rush.run(animerunid[0].animeId, i);
 
             if (
@@ -188,8 +196,11 @@ module.exports = {
       let animerunid = await anime_search_rush.run(name);
       let episodes_rush = [];
       for (let i = 1; i < details.totalEpisodes + 1; i++) {
-        let rush_stream = { url: "/error" };
-        if (animerunid.length >= 1) {
+        let rush_stream = await anime_stream_rush.run(rush_id, i);
+        if (rush_stream.url != "/error"){
+          episodes_rush.push(rush_stream);
+        }
+        if (rush_stream.url == "/error" && animerunid.length >= 1) {
           rush_stream = await anime_stream_rush.run(animerunid[0].animeId, i);
           if (
             rush_stream.url == "/error" ||
@@ -209,9 +220,7 @@ module.exports = {
             }
           }
           episodes_rush.push(rush_stream);
-        } else {
-          break;
-        }
+        } 
       }
 
       if (name.includes(",")) {

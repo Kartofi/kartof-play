@@ -188,26 +188,32 @@ app.get("/watch/:id/:episode", async (req, res) => {
 
     let rush_stream = { url: "/error" };
     let animerunid = await anime_search_rush.run(name);
+    rush_search_id;
+    rush_stream = await anime_stream_rush.run(
+      rush_search_id,
+      req.params.episode
+    );
+    if (rush_stream == null || rush_stream == []) {
+      if (animerunid.length >= 1) {
+        rush_stream = await anime_stream_rush.run(
+          animerunid[0].animeId,
+          req.params.episode
+        );
 
-    if (animerunid.length >= 1) {
-      rush_stream = await anime_stream_rush.run(
-        animerunid[0].animeId,
-        req.params.episode
-      );
+        if (
+          rush_stream.url == "/error" ||
+          animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()
+        ) {
+          for (let i = 0; i < animerunid.length; i++) {
+            if (animerunid[i].animeTitle.toLowerCase() == name.toLowerCase()) {
+              rush_stream = await anime_stream_rush.run(
+                animerunid[i].animeId,
+                req.params.episode
+              );
+              id = animerunid[i].animeId;
 
-      if (
-        rush_stream.url == "/error" ||
-        animerunid[0].animeTitle.toLowerCase() != name.toLowerCase()
-      ) {
-        for (let i = 0; i < animerunid.length; i++) {
-          if (animerunid[i].animeTitle.toLowerCase() == name.toLowerCase()) {
-            rush_stream = await anime_stream_rush.run(
-              animerunid[i].animeId,
-              req.params.episode
-            );
-            id = animerunid[i].animeId;
-
-            break;
+              break;
+            }
           }
         }
       }
@@ -272,6 +278,8 @@ app.get("/watch/:id/:episode", async (req, res) => {
  */
 
 app.listen(port, async () => {
+  let data = await anime_schedule.run();
+  console.log(data[0]);
   await client.connect();
   console.log(`App listening on port ${port}`);
 });

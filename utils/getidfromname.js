@@ -22,6 +22,7 @@ module.exports = {
       .replaceAll("--", "-")
       .replaceAll("--", "-")
       .replaceAll("--", "-")
-      .replaceAll("--", "-");
+      .replaceAll("--", "-")
+      .replaceAll("\"","");
   },
 };
