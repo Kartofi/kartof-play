@@ -278,8 +278,6 @@ app.get("/watch/:id/:episode", async (req, res) => {
  */
 
 app.listen(port, async () => {
-  let data = await anime_schedule.run();
-  console.log(data[0]);
   await client.connect();
   console.log(`App listening on port ${port}`);
 });

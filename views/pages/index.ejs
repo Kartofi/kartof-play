@@ -84,7 +84,13 @@
     <div class="container">
       <% recent.forEach(function(element) { %>
         <div onclick="location.href='<%= element.watch_url %>';" class="card">
-        <img class="card-img" src="<%= element.animeImg.replace('anime-images', 'anime-images-big').replace('png','jpg') %>" />
+          <%  if (element.animeImg.includes("gogocdn")){ %>
+            <img class="card-img" src="<%= element.animeImg %>" />
+          <% }else { %>
+            <img class="card-img" src="<%= element.animeImg.replace('anime-images', 'anime-images-big').replace('png','jpg') %>" />
+          <% } %>
+          
+       
         <br />
         <div class="data">
           <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
