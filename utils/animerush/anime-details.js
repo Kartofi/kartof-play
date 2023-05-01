@@ -18,9 +18,14 @@ module.exports = {
       watch_id: getidfromname.run(name),
       genres: [],
     };
-    let response = await fetch(
-      rush_base_url + "anime/" + getidfromname.run(name)
-    );
+    let response;
+    try {
+      response = await fetch(
+        rush_base_url + "anime/" + getidfromname.run(name)
+      );
+    } catch (e) {
+      return null;
+    }
     const body = await response.text();
 
     let $ = cheerio.load(body);
@@ -41,26 +46,29 @@ module.exports = {
 
     let episodes = $("div.episode_list");
 
-    data.totalEpisodes = episodes.length -1;
+    data.totalEpisodes = episodes.length - 1;
     for (let i = 1; i < episodes.length; i++) {
-
       data.episodesList.push({
         watchUrl: "/watch/" + getidfromname.run(name).toLowerCase() + "/" + i,
-        episodeNum: i
-      })
+        episodeNum: i,
+      });
     }
     let genres = $(
       "#left-column > div.amin_box2 > div.desc_box_mid > div.cat_box_desc > a"
     );
-    genres.each(function(index, el) {
-      data.genres.push(el.children[0].data)
-    })
-    let otherNames = $("div.cat_box_desc")
+    genres.each(function (index, el) {
+      data.genres.push(el.children[0].data);
+    });
+    let otherNames = $("div.cat_box_desc");
     if (otherNames.html() != null) {
-      data.otherNames = otherNames.html().split("</h3>")[2].split(" <br>")[0].trim().split(", ");
-    
+      data.otherNames = otherNames
+        .html()
+        .split("</h3>")[2]
+        .split(" <br>")[0]
+        .trim()
+        .split(", ");
     }
-    
+
     return data;
   },
 };

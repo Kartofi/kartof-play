@@ -60,9 +60,10 @@
         </select>
       </center>
     </div>
-    <center> 
-      <a style=" font-size: 40px;">GoGoAnime</a>
+    <center>
+      <a style="font-size: 40px">GoGoAnime</a>
     </center>
+    <% if (data.gogo != null && data.gogo[0] != null){ %>
     <div class="container">
       <% data.gogo.forEach(function(element) { %>
       <div onclick="location.href='<%= element.watch_url %>';" class="card">
@@ -75,13 +76,14 @@
           <a class="important"><%= element.rating %>🌟</a>
         </div>
       </div>
-
       <% }) %>
     </div>
-    <br>
-    <center> 
-      <a style=" font-size: 40px;">AnimeRush</a>
+    <% } %>
+    <br />
+    <center>
+      <a style="font-size: 40px">AnimeRush</a>
     </center>
+    <% if (data.rush != null && data.rush[0] != null){ %>
     <div class="container">
       <% data.rush.forEach(function(element) { %>
       <div onclick="location.href='<%= element.watch_url %>';" class="card">
@@ -97,9 +99,11 @@
 
       <% }) %>
     </div>
-    <br>
-    <center> 
-      <a style=" font-size: 40px;">MAL</a>
+    <% } %>
+
+    <br />
+    <center>
+      <a style="font-size: 40px">MAL</a>
     </center>
     <div class="container">
       <% data.mal.forEach(function(element) { %>

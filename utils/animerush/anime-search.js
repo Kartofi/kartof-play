@@ -9,10 +9,15 @@ module.exports = {
   },
   run: async function (keyword) {
     let data =  [];
-    let response = await fetch(
+    let response;
+    try{
+      response = await fetch(
       
-      rush_base_url +"search.php?searchquery=" + keyword
-    );
+        rush_base_url +"search.php?searchquery=" + keyword
+      );
+    }catch(e){
+      return null;
+    }
     const body = await response.text();
 
     let $ = cheerio.load(body);

@@ -9,9 +9,14 @@ module.exports = {
   },
   run: async function (name, episode) {
     let data = {};
-    let response = await fetch(
-      rush_base_url + name + "-episode-" + episode
-    );
+    let response;
+    try{
+      response = await fetch(
+        rush_base_url + name + "-episode-" + episode
+      );
+    }catch(e){
+      return null;
+    }
     const body = await response.text();
 
     let $ = cheerio.load(body);
