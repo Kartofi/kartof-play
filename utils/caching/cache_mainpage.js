@@ -37,10 +37,14 @@ module.exports = {
       data = data1;
       popular = popular1;
       recent = animerush_recent;
-      if (animerush_recent.length <= 0) {
+      if (
+        animerush_recent == null ||
+        animerush_recent.length <= 0 ||
+        (animerush_recent.length >= 1 && animerush_recent[0] == null)
+      ) {
         recent = recent1;
       }
-  
+
       await collection.deleteMany({
         date: {
           day: date.getDate(),

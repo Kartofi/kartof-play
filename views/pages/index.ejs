@@ -82,6 +82,7 @@
     </center>
 
     <div class="container">
+      <% if (recent != null && recent.length >= 0 && recent[0] != null) { %>
       <% recent.forEach(function(element) { %>
         <div onclick="location.href='<%= element.watch_url %>';" class="card">
           <%  if (element.animeImg.includes("gogocdn")){ %>
@@ -100,6 +101,7 @@
       </div>
 
       <% }) %>
+      <% } %>
     </div>
     <br>
     <center>
