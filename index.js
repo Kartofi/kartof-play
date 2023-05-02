@@ -121,7 +121,7 @@ app.get("/watch/:id/:episode", async (req, res) => {
   if (details.totalEpisodes) {
     episodes_max = details.totalEpisodes;
   }
-  if (details_rush.totalEpisodes && details_rush.totalEpisodes > episodes_max) {
+  if (details_rush != null && details_rush.totalEpisodes && details_rush.totalEpisodes > episodes_max) {
     episodes_max = details_rush.totalEpisodes;
     details = details_rush;
   }

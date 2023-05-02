@@ -72,7 +72,7 @@ module.exports = {
 
           let rush_stream = await anime_stream_rush.run(rush_id, i);
 
-          if (rush_stream.url == "/error" && animerunid.length >= 1) {
+          if ((rush_stream == null || rush_stream.url == "/error") && animerunid.length >= 1) {
             rush_stream = await anime_stream_rush.run(animerunid[0].animeId, i);
 
             if (

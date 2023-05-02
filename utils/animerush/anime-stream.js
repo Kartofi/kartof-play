@@ -10,12 +10,10 @@ module.exports = {
   run: async function (name, episode) {
     let data = {};
     let response;
-    try{
-      response = await fetch(
-        rush_base_url + name + "-episode-" + episode
-      );
-    }catch(e){
-      return null;
+    try {
+      response = await fetch(rush_base_url + name + "-episode-" + episode);
+    } catch (e) {
+      return { url: "/error" };
     }
     const body = await response.text();
 

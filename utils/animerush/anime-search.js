@@ -16,7 +16,7 @@ module.exports = {
         rush_base_url +"search.php?searchquery=" + keyword
       );
     }catch(e){
-      return null;
+      return [];
     }
     const body = await response.text();
 

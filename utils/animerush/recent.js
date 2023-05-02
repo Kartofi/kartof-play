@@ -13,7 +13,7 @@ module.exports = {
     try {
       response = await fetch(rush_base_url + "latest-anime-episodes/");
     } catch (e) {
-      return null;
+      return [];
     }
     const body = await response.text();
 
