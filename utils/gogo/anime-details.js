@@ -18,7 +18,7 @@ module.exports = {
     let $ = cheerio.load(body);
     
     let img = $("#wrapper_bg > section > section.content_left > div.main_body > div.anime_info_body > div.anime_info_body_bg > img").attr("src")
-    let title = $("#wrapper_bg > section > section.content_left > div.main_body > div.anime_info_body > div.anime_info_body_bg > h1").html()
+    let title = $("#wrapper_bg > section > section.content_left > div.main_body > div.anime_info_body > div.anime_info_body_bg > h1").text()
     //let type = $("#wrapper_bg > section > section.content_left > div.main_body > div.anime_info_body > div.anime_info_body_bg > p:nth-child(3) > a").attr("title")
     let synopsis = $("#wrapper_bg > section > section.content_left > div.main_body > div:nth-child(2) > div.anime_info_body_bg > p:nth-child(5)").text().replace("Plot Summary: ", "")
     //let status = $("#wrapper_bg > section > section.content_left > div.main_body > div.anime_info_body > div.anime_info_body_bg > p:nth-child(7)").text().replace("Status: ", "")
