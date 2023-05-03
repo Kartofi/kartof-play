@@ -31,7 +31,7 @@ Watch page < 1 s (when cached)
 
 -[https://animeschedule.net/](https://animeschedule.net/)
 
--[https://www.animerush.tv/](https://www.animerush.tv/)
+-[https://www.animegg.org/](https://www.animegg.org/)
 
 ## DISCLAIMER
 ANY DATA IN THE SITE IS NOT STORED IN MY STORAGE SYSTEM

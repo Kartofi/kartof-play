@@ -2,7 +2,7 @@ const { promiseImpl } = require("ejs");
 const anime_schedule = require("../anime_schedule/anime-schedule");
 const anime_gogo_popular = require("../gogo/anime-popular");
 const anime_gogo_recent = require("../gogo/anime-recent");
-const anime_rush_recent = require("../animerush/recent");
+const anime_animegg_recent = require("../animegg/recent");
 
 module.exports = {
   data: "CachesMainPage",
@@ -27,22 +27,22 @@ module.exports = {
       popular = database.popular;
       recent = database.recent;
     } else {
-      let [data1, popular1, recent1, animerush_recent] = await Promise.all([
+      let [data1, popular1, recent1, animeanimegg_recent] = await Promise.all([
         anime_schedule.run(),
         anime_gogo_popular.run(1),
         anime_gogo_recent.run(1),
-        anime_rush_recent.run(),
+        anime_animegg_recent.run(),
       ]);
 
       data = data1;
       popular = popular1;
-      recent = animerush_recent;
+      recent = recent1;
       if (
-        animerush_recent == null ||
-        animerush_recent.length <= 0 ||
-        (animerush_recent.length >= 1 && animerush_recent[0] == null)
+        recent1 == null ||
+        recent1.length <= 0 ||
+        (recent1.length >= 1 && recent1[0] == null)
       ) {
-        recent = recent1;
+        recent = animeanimegg_recent;
       }
 
       await collection.deleteMany({

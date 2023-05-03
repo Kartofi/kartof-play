@@ -7,11 +7,11 @@ module.exports = {
   data: {
     description: "Returns stream for anime",
   },
-  run: async function (name, episode) {
+  run: async function (id, episode) {
     let data = {};
     let response;
     try {
-      response = await fetch(rush_base_url + name + "-episode-" + episode);
+      response = await fetch(animegg_base_url + id + "-episode-" + episode);
     } catch (e) {
       return { url: "/error" };
     }
@@ -19,15 +19,16 @@ module.exports = {
 
     let $ = cheerio.load(body);
 
-    let source = $("div.player-area");
-    let url = source.children().find("iframe").attr("src");
+    let source = $("iframe.video");
+    let url = source.attr("src");
+
     if (url == undefined) {
       data = {
         url: "/error",
       };
     } else {
       data = {
-        url: url,
+        url: animegg_base_url.substring(0,animegg_base_url.length-1) + url,
       };
     }
 

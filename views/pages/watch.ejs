@@ -44,8 +44,8 @@
       if ("<%= stream.url %>" == undefined) {
         document.getElementById("gogoanime").disabled = true;
       }
-      if ("<%= rush_stream.url %>" == undefined) {
-        document.getElementById("animerush").disabled = true;
+      if ("<%= animegg_stream.url %>" == undefined) {
+        document.getElementById("animeanimegg").disabled = true;
       }
       let scroll_height = document.getElementById("player").scrollHeight;
       let scroll_width = document.getElementById("player").scrollWidth;
@@ -58,8 +58,8 @@
     function changeSource(source) {
       if (source == "gogo") {
         document.getElementById("player").src = "<%= stream.url %>";
-      } else if (source == "rush") {
-        document.getElementById("player").src = "<%= rush_stream.url %>";
+      } else if (source == "animegg") {
+        document.getElementById("player").src = "<%= animegg_stream.url %>";
       }
       load();
     }
@@ -115,7 +115,7 @@
           <select id="select">
             <option>All</option>
             <option>GoGoAnime</option>
-            <option>AnimeRush</option>
+            <option>Animeanimegg</option>
             <option>MAL</option>
             
           </select>
@@ -208,8 +208,8 @@
         <a class="episode abutton" id="gogoanime" onclick="changeSource('gogo')"
           >GoGoAnime</a
         >
-        <a class="episode abutton" id="animerush" onclick="changeSource('rush')"
-          >AnimeRush</a
+        <a class="episode abutton" id="animeanimegg" onclick="changeSource('animegg')"
+          >Animegg</a
         >
         <br />
         <br />

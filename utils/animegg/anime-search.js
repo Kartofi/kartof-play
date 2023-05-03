@@ -12,8 +12,7 @@ module.exports = {
     let response;
     try{
       response = await fetch(
-      
-        rush_base_url +"search.php?searchquery=" + keyword
+       animegg_base_url +"search/?q=" + keyword
       );
     }catch(e){
       return [];
@@ -22,20 +21,20 @@ module.exports = {
 
     let $ = cheerio.load(body);
 
-    let source = $("div.amin_box_mid");
+    let source = $("div[class='moose page']");
     let children = source.children();
     children.each(async function (index, element) {
-      if (element.name == "div") {
-        if (element.attribs.class == "search-page_in_box_mid_link") {
+      if (element.name == "a") {
+        if (element.attribs.class == "mse") {
           let element_data = $(element);
-          let id = element_data.find("a.highlightit").attr("href");
-          let image = element_data.find("object.highlightz").attr("data");
+          let id = element_data.attr("href").split("/")[2];
+          let image = element_data.find("img.media-object").attr("src");
           data.push({
-            animeId: id.split("/")[4],
-            animeTitle: id.split("/")[4].replaceAll("-", " "),
-            animeImg: "https:" + image,
-            source: "(AnimeRush)",
-            watch_url: "/watch/" + id.split("/")[4] + "/1"
+            animeId:id,
+            animeTitle: element_data.find("h2").first().text(),
+            animeImg: image,
+            source: "(Animegg)",
+            watch_url: "/watch/" + id + "/1"
           });
           
         }
