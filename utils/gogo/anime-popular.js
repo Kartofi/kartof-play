@@ -17,7 +17,7 @@ module.exports = {
     $('div.last_episodes > ul > li').each((i, el) => {
       
       let image = $(el).find('div > a > img').attr('src');
-      let title = $(el).find('p.name > a').attr('title')
+      let title = $(el).find('p.name > a').html()
       let id = $(el).find('p.name > a').attr('href').split("/category/")[1];
       let release = $(el).find("p.released").text().trim().replace("Released: ", "");
       let watch_url = "/watch/" + id + "/1"

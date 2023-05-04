@@ -60,6 +60,8 @@
         document.getElementById("player").src = "<%= stream.url %>";
       } else if (source == "animegg") {
         document.getElementById("player").src = "<%= animegg_stream.url %>";
+      }else {
+        document.getElementById("player").src = "<%= animerush_stream.url %>";
       }
       load();
     }
@@ -206,11 +208,11 @@
     <div class="player">
       <center>
         <a class="episode abutton" id="gogoanime" onclick="changeSource('gogo')"
-          >GoGoAnime</a
-        >
+          >GoGoAnime</a>
         <a class="episode abutton" id="animeanimegg" onclick="changeSource('animegg')"
-          >Animegg</a
-        >
+          >Animegg</a>
+        <a class="episode abutton" id="animeanimegg" onclick="changeSource('animerush')"
+          >AnimeRush(old)</a>
         <br />
         <br />
 
