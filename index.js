@@ -254,7 +254,7 @@ app.get("/watch/:id/:episode", async (req, res) => {
       }
     }
     let rush_stream = {url:"/error"};
-    if(checkid_data.data.rush_stream != undefined && checkid_data.data.rush_stream[req.params.episode-1] != null){
+    if(checkid_data != undefined && checkid_data != null && checkid_data.data.rush_stream != undefined && checkid_data.data.rush_stream[req.params.episode-1] != null){
       rush_stream = checkid_data.data.rush_stream[req.params.episode-1];
     }
     res.render("pages/watch.ejs", {

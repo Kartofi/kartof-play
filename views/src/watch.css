@@ -159,6 +159,7 @@ a:visited {
 .abutton {
   background-color: #363636;
   border-radius: 10px;
+  box-sizing: border-box;
   font-size: 30px;
   border: 0px;
   color: rgb(138, 136, 252);
@@ -220,6 +221,5 @@ select {
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    
     background: rgb(118, 116, 214); 
   }
