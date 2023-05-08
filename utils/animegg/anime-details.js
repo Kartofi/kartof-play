@@ -21,7 +21,7 @@ module.exports = {
     let response;
     try {
       response = await fetch(
-        rush_base_url + "anime/" + getidfromname.run(name)
+        animegg_base_url + "series/" + getidfromname.run(name)
       );
     } catch (e) {
       return null;
@@ -30,44 +30,51 @@ module.exports = {
 
     let $ = cheerio.load(body);
     let image = $(
-      "#left-column > div.amin_box2 > div.desc_box_mid > div.cat_image > object"
-    ).attr("data");
+      "body > div.navbar.navbar-inverse.bs-docs-nav > div.fattynav > div.fattynavinside > div > div > a > img"
+    ).attr("src");
 
     data.animeImg = image;
     let title = $(
-      "#left-column > div.amin_box2 > div.amin_week_box_up1 > h1"
+      "body > div.navbar.navbar-inverse.bs-docs-nav > div.fattynav > div.fattynavinside > div > div > div > div.first > h1"
     ).html();
     data.animeTitle = title;
 
     let desc = $(
-      "#left-column > div.amin_box2 > div.desc_box_mid > div.cat_box_desc > div"
+      "body > div.navbar.navbar-inverse.bs-docs-nav > div.fattynav > div.container > p"
     ).html();
     data.synopsis = desc;
 
-    let episodes = $("div.episode_list");
-
-    data.totalEpisodes = episodes.length - 1;
-    for (let i = 1; i < episodes.length; i++) {
+    let animeinfo = $("p.infoami");
+    animeinfo.children().each(function (index, el) {
+      if (el.children[0].data.includes("Episodes")) {
+        try {
+          data.totalEpisodes = Number(el.children[0].data.split(" ")[1]);
+        } catch {
+          data.totalEpisodes = 0;
+        }
+      }else if (el.children[0].data.includes("Alternate Titles")){
+        try{
+          let titles = el.children[0].data.split(": ")[1].split(", ");
+          data.otherNames = titles;
+        }catch{
+          data.otherNames = [];
+        }
+        
+      }
+    });
+    for (let i = 1; i < data.totalEpisodes + 1; i++) {
       data.episodesList.push({
         watchUrl: "/watch/" + getidfromname.run(name).toLowerCase() + "/" + i,
         episodeNum: i,
       });
     }
     let genres = $(
-      "#left-column > div.amin_box2 > div.desc_box_mid > div.cat_box_desc > a"
+      "body > div.navbar.navbar-inverse.bs-docs-nav > div.fattynav > div.fattynavinside > div > div > div > div.second > ul"
     );
     genres.each(function (index, el) {
-      data.genres.push(el.children[0].data);
+      let genre = $(el).find("a")[0].attribs.href.split("/")[2];
+      data.genres.push(genre.charAt(0).toUpperCase() + genre.slice(1));
     });
-    let otherNames = $("div.cat_box_desc");
-    if (otherNames.html() != null) {
-      data.otherNames = otherNames
-        .html()
-        .split("</h3>")[2]
-        .split(" <br>")[0]
-        .trim()
-        .split(", ");
-    }
 
     return data;
   },

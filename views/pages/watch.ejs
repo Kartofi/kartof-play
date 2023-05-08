@@ -63,6 +63,7 @@
       }else {
         document.getElementById("player").src = "<%= animerush_stream.url %>";
       }
+      console.log(document.getElementById("player").src)
       load();
     }
     function show_desc() {
@@ -209,9 +210,9 @@
       <center>
         <a class="episode abutton" id="gogoanime" onclick="changeSource('gogo')"
           >GoGoAnime</a>
-        <a class="episode abutton" id="animeanimegg" onclick="changeSource('animegg')"
+        <a class="episode abutton" id="animegg" onclick="changeSource('animegg')"
           >Animegg</a>
-        <a class="episode abutton" id="animeanimegg" onclick="changeSource('animerush')"
+        <a class="episode abutton" id="animerush" onclick="changeSource('animerush')"
           >AnimeRush(old)</a>
         <br />
         <br />

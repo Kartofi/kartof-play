@@ -78,6 +78,7 @@ app.get("/search/:keyword/:source", async (req, res) => {
 
 app.get("/watch/:id/:episode", async (req, res) => {
   let id = req.params.id;
+  let gogoanimeavailable = false;
   let [search, search_animegg] = await Promise.all([
     anime_gogo_search.run(id.replaceAll("-", " ")),
     anime_search_animegg.run(id.replaceAll("-", " ")),
@@ -125,10 +126,11 @@ app.get("/watch/:id/:episode", async (req, res) => {
     episodes_max = details_animegg.totalEpisodes;
     details = details_animegg;
   }
-  if (details.animeTitle == null) {
+  if (details.animeTitle == null || details.animeTitle == '') {
     details = details_animegg;
+  }else {
+    gogoanimeavailable = true;
   }
-
   let checkid_data = await checkid.run(client, id, episodes_max);
   //Date.now() - checkid_data.time < 86400000
 
@@ -137,7 +139,7 @@ app.get("/watch/:id/:episode", async (req, res) => {
     checkid_data.data.animegg_stream != undefined &&
     checkid_data.data.stream[checkid_data.data.stream.length - 1] != null &&
     checkid_data.data.stream[checkid_data.data.stream.length - 1].url !=
-      "/error" &&
+      "/error"  &&
     checkid_data.data.animegg_stream[checkid_data.data.animegg_stream.length - 1] !=
       null &&
     checkid_data.data.animegg_stream[checkid_data.data.animegg_stream.length - 1]
@@ -241,7 +243,6 @@ app.get("/watch/:id/:episode", async (req, res) => {
 
     if (mal[0] != undefined) {
       rating = mal[0].rating;
-
       if (details == undefined && stream.url == "/error") {
         search = await anime_gogo_search.run(mal[0].animeTitle);
         if (search[0]) {
@@ -267,7 +268,6 @@ app.get("/watch/:id/:episode", async (req, res) => {
       episode: req.params.episode,
       new_ep: data_schedule,
     });
-
     await checheverything.run(
       client,
       saveid,
