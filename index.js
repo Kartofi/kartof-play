@@ -10,7 +10,7 @@ const url = process.env.mongodb;
 const client = new MongoClient(url);
 
 global.animegg_base_url = "https://www.animegg.org/";
-global.gogo_base_url = "https://gogoanime.llc/";
+global.gogo_base_url = "https://gogoanime.hu/";
 //Anime Schedule
 const anime_data_schedule = require("./utils/anime_schedule/anime-data");
 const anime_schedule = require("./utils/anime_schedule/anime-schedule");
@@ -122,13 +122,17 @@ app.get("/watch/:id/:episode", async (req, res) => {
   if (details.totalEpisodes) {
     episodes_max = details.totalEpisodes;
   }
-  if (details_animegg != null && details_animegg.totalEpisodes && details_animegg.totalEpisodes > episodes_max) {
+  if (
+    details_animegg != null &&
+    details_animegg.totalEpisodes &&
+    details_animegg.totalEpisodes > episodes_max
+  ) {
     episodes_max = details_animegg.totalEpisodes;
     details = details_animegg;
   }
-  if (details.animeTitle == null || details.animeTitle == '') {
+  if (details.animeTitle == null || details.animeTitle == "") {
     details = details_animegg;
-  }else {
+  } else {
     gogoanimeavailable = true;
   }
   let checkid_data = await checkid.run(client, id, episodes_max);
@@ -139,11 +143,13 @@ app.get("/watch/:id/:episode", async (req, res) => {
     checkid_data.data.animegg_stream != undefined &&
     checkid_data.data.stream[checkid_data.data.stream.length - 1] != null &&
     checkid_data.data.stream[checkid_data.data.stream.length - 1].url !=
-      "/error"  &&
-    checkid_data.data.animegg_stream[checkid_data.data.animegg_stream.length - 1] !=
-      null &&
-    checkid_data.data.animegg_stream[checkid_data.data.animegg_stream.length - 1]
-      .url != "/error"
+      "/error" &&
+    checkid_data.data.animegg_stream[
+      checkid_data.data.animegg_stream.length - 1
+    ] != null &&
+    checkid_data.data.animegg_stream[
+      checkid_data.data.animegg_stream.length - 1
+    ].url != "/error"
   ) {
     let episode_index = req.params.episode - 1;
     let stream;
@@ -158,9 +164,12 @@ app.get("/watch/:id/:episode", async (req, res) => {
     } else {
       animegg_stream = checkid_data.data.animegg_stream[episode_index];
     }
-    let rush_stream = {url:"/error"};
-    if(checkid_data.data.rush_stream != undefined && checkid_data.data.rush_stream[req.params.episode-1] != null){
-      rush_stream = checkid_data.data.rush_stream[req.params.episode-1];
+    let rush_stream = { url: "/error" };
+    if (
+      checkid_data.data.rush_stream != undefined &&
+      checkid_data.data.rush_stream[req.params.episode - 1] != null
+    ) {
+      rush_stream = checkid_data.data.rush_stream[req.params.episode - 1];
     }
     res.render("pages/watch.ejs", {
       stream: stream,
@@ -254,9 +263,14 @@ app.get("/watch/:id/:episode", async (req, res) => {
         }
       }
     }
-    let rush_stream = {url:"/error"};
-    if(checkid_data != undefined && checkid_data != null && checkid_data.data.rush_stream != undefined && checkid_data.data.rush_stream[req.params.episode-1] != null){
-      rush_stream = checkid_data.data.rush_stream[req.params.episode-1];
+    let rush_stream = { url: "/error" };
+    if (
+      checkid_data != undefined &&
+      checkid_data != null &&
+      checkid_data.data.rush_stream != undefined &&
+      checkid_data.data.rush_stream[req.params.episode - 1] != null
+    ) {
+      rush_stream = checkid_data.data.rush_stream[req.params.episode - 1];
     }
     res.render("pages/watch.ejs", {
       stream: stream,
