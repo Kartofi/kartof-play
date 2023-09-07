@@ -1,0 +1,41 @@
+{
+  "short_name": "Kartof Play",
+  "name": "Kartof Play",
+  "icons": [
+    {
+      "src": "/images/kartof-play.png",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "id": "/",
+  "start_url": "/",
+  "background_color": "#8a88fc",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#8a88fc",
+  "shortcuts": [
+    {
+      "name": "Find your anime today!",
+      "short_name": "Search",
+      "description": "Search for your anime.",
+      "url": "/search/anime/All",
+      "icons": [{ "src": "/images/kartof-play.png", "sizes": "192x192" }]
+    }
+  ],
+  "description": "Animes for free",
+  "screenshots": [
+    {
+      "src": "https://github.com/Kartofi/kartof-play/raw/master/imgs/preview.png",
+      "type": "image/png",
+      "sizes": "540x720",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "https://github.com/Kartofi/kartof-play/raw/master/imgs/preview.png",
+      "type": "image/jpg",
+      "sizes": "720x540",
+      "form_factor": "wide"
+    }
+  ]
+}

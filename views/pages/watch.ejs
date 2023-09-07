@@ -69,6 +69,7 @@
     function show_desc() {
       let show_desc = document.getElementById("desc_data");
       if (show_desc.text == "Show") {
+        
         show_desc.innerHTML = '<%=details.synopsis.replace(/\n/g, "").replaceAll("\n", "") %>';
       } else {
         show_desc.innerHTML = "Show";
