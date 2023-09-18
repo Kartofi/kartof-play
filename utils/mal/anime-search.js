@@ -10,7 +10,8 @@ module.exports = {
   run: async function (keyword) {
     let data = [];
     let response = await fetch(
-      "https://myanimelist.net/anime.php?q=" + keyword + "&cat=anime"
+      "https://myanimelist.net/anime.php?q=" + keyword + "&cat=anime",
+      fetchArgs
     );
     const body = await response.text();
 
@@ -29,14 +30,18 @@ module.exports = {
 
       if (image.length >= 1) {
         data.push({
-          animeImg: image[0].attribs["data-srcset"].split(" ")[2].replace(".jpg", "l.jpg").replace("/r/100x140", ""),
+          animeImg: image[0].attribs["data-srcset"]
+            .split(" ")[2]
+            .replace(".jpg", "l.jpg")
+            .replace("/r/100x140", ""),
           animeTitle: image[0].attribs["alt"],
           desc: desc,
           rating: score,
           type: type,
           episodes: eps,
-          watch_url: "/watch/" + getidfromname.run(image[0].attribs["alt"]) + "/1",
-          source: "(MAL)"
+          watch_url:
+            "/watch/" + getidfromname.run(image[0].attribs["alt"]) + "/1",
+          source: "(MAL)",
         });
       }
     });

@@ -21,7 +21,8 @@ module.exports = {
     let response;
     try {
       response = await fetch(
-        animegg_base_url + "series/" + getidfromname.run(name)
+        animegg_base_url + "series/" + getidfromname.run(name),
+        fetchArgs
       );
     } catch (e) {
       return null;
@@ -52,14 +53,13 @@ module.exports = {
         } catch {
           data.totalEpisodes = 0;
         }
-      }else if (el.children[0].data.includes("Alternate Titles")){
-        try{
+      } else if (el.children[0].data.includes("Alternate Titles")) {
+        try {
           let titles = el.children[0].data.split(": ")[1].split(", ");
           data.otherNames = titles;
-        }catch{
+        } catch {
           data.otherNames = [];
         }
-        
       }
     });
     for (let i = 1; i < data.totalEpisodes + 1; i++) {

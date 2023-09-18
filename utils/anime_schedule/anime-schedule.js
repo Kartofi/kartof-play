@@ -9,7 +9,7 @@ module.exports = {
   },
   run: async function () {
     let data = [];
-    let response = await fetch("https://animeschedule.net/");
+    let response = await fetch("https://animeschedule.net/", fetchArgs);
     const body = await response.text();
 
     let $ = cheerio.load(body);
@@ -26,20 +26,20 @@ module.exports = {
         let time = time_bar.find("time.show-air-time").attr("datetime");
         let show = $(element).find("a.show-link");
         let image = show.find("img").attr("src");
-        if (image == null || !image.startsWith("http")){
+        if (image == null || !image.startsWith("http")) {
           image = show.find("img").attr("data-srcset");
-          if (image != null){
-            image = image.split(",")[1].split(" ")[1]
+          if (image != null) {
+            image = image.split(",")[1].split(" ")[1];
           }
         }
-       
+
         let id = $(element).attr("route");
         let title = show.find("h2.show-title-bar").text();
         if (episode.length <= 0) {
           return;
         }
         let out = false;
-        
+
         if (new Date(time) < new Date()) {
           out = true;
         }

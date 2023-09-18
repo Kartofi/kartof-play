@@ -8,13 +8,14 @@ module.exports = {
     description: "Search inside of animerush",
   },
   run: async function (keyword) {
-    let data =  [];
+    let data = [];
     let response;
-    try{
+    try {
       response = await fetch(
-       animegg_base_url +"search/?q=" + keyword
+        animegg_base_url + "search/?q=" + keyword,
+        fetchArgs
       );
-    }catch(e){
+    } catch (e) {
       return [];
     }
     const body = await response.text();
@@ -30,13 +31,12 @@ module.exports = {
           let id = element_data.attr("href").split("/")[2];
           let image = element_data.find("img.media-object").attr("src");
           data.push({
-            animeId:id,
+            animeId: id,
             animeTitle: element_data.find("h2").first().text(),
             animeImg: image,
             source: "(Animegg)",
-            watch_url: "/watch/" + id + "/1"
+            watch_url: "/watch/" + id + "/1",
           });
-          
         }
       }
     });

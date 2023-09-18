@@ -11,6 +11,15 @@ const client = new MongoClient(url);
 
 global.animegg_base_url = "https://www.animegg.org/";
 global.gogo_base_url = "https://gogoanime.hu/";
+
+const { HttpsProxyAgent } = require("https-proxy-agent");
+const proxy = new HttpsProxyAgent(process.env.PROXY);
+
+global.fetchArgs = {
+  proxy,
+  timeout: 5000,
+};
+
 //Anime Schedule
 const anime_data_schedule = require("./utils/anime_schedule/anime-data");
 const anime_schedule = require("./utils/anime_schedule/anime-schedule");
@@ -68,7 +77,6 @@ app.get("/search/:keyword/:source", async (req, res) => {
     data.gogo = gogosearch;
     data.rush = rushsearch;
   }
-
   res.render("pages/search.ejs", {
     data: data,
     keyword: req.params.keyword,

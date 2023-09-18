@@ -9,19 +9,17 @@ module.exports = {
   },
   run: async function (id, episode) {
     let data = {
-      url : "/error"
+      url: "/error",
     };
 
     let response = await fetch(
-      gogo_base_url +
-        id +
-        "-episode-" +
-        episode
-    )
+      gogo_base_url + id + "-episode-" + episode,
+      fetchArgs
+    );
     let body = await response.text();
 
     let $ = cheerio.load(body);
-    let urll = $("#load_anime > div > div > iframe").attr("src")
+    let urll = $("#load_anime > div > div > iframe").attr("src");
     if (urll) {
       data.url = urll;
     }

@@ -11,7 +11,10 @@ module.exports = {
     let data = {};
     let response;
     try {
-      response = await fetch(animegg_base_url + id + "-episode-" + episode);
+      response = await fetch(
+        animegg_base_url + id + "-episode-" + episode,
+        fetchArgs
+      );
     } catch (e) {
       return { url: "/error" };
     }
@@ -28,7 +31,7 @@ module.exports = {
       };
     } else {
       data = {
-        url: animegg_base_url.substring(0,animegg_base_url.length-1) + url,
+        url: animegg_base_url.substring(0, animegg_base_url.length - 1) + url,
       };
     }
 
