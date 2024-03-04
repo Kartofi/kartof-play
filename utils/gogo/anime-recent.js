@@ -8,7 +8,7 @@ module.exports = {
   run: async function (page) {
     let data = [];
     let response = await fetch(
-      "https://ajax.gogo-load.com/ajax/page-recent-release.html?page=" + page,
+      "https://ajax.gogocdn.net/ajax/page-recent-release.html?page=" + page,
       fetchArgs
     );
     let body = await response.text();
