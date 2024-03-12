@@ -27,29 +27,27 @@ a {
   font-size: 17px;
 }
 h1 {
-    font-family: "Open Sans", sans-serif;
-    color: rgb(138, 136, 252);
-    font-size: 1fr;
-  }
-  /* width */
-  ::-webkit-scrollbar {
-    width: 20px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background-color:#414141;
-  
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: rgb(138, 136, 252); 
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    
-    background: rgb(118, 116, 214); 
-  }
+  font-family: "Open Sans", sans-serif;
+  color: rgb(138, 136, 252);
+  font-size: 1fr;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #414141;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(138, 136, 252);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(118, 116, 214);
+}

@@ -68,11 +68,11 @@
       <div onclick="location.href='<%= element.watch_url %>';" class="card">
         <img class="card-img" src="<%= element.image %>" />
         <br />
-        <div class="data">
-          <a href="<%= element.watch_url %>"><%= element.title %></a>
-          <br />
-          <a <% if (element.out == true) { %> style="color: yellow;" <% }else{%> style="color: gray;" <%} %> class="important"><%= element.episode %> / <%= element.time %></a>
-        </div>
+          <div class="data">
+            <a href="<%= element.watch_url %>"><%= element.title %></a>
+            <br />
+            <a <% if (element.out == true) { %> style="color: yellow;" <% }else{%> style="color: gray;" <%} %> class="important"><%= element.episode %> / <%= element.time %></a>
+          </div>
       </div>
 
       <% }) %>

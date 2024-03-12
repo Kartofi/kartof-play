@@ -204,6 +204,7 @@ option,
 select {
   color: white;
   background-color: #141414;
+  outline: none;
   border-radius: 10px;
   font-size: 30px;
   border: 0px;

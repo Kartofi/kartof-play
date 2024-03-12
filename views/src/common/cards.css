@@ -8,17 +8,27 @@
 }
 .card {
   border: 1px solid rgb(138, 136, 252);
-  background-image: radial-gradient(farthest-corner at 40px 40px,black, rgb(37, 36, 66));
+  background-image: radial-gradient(
+    farthest-corner at 40px 40px,
+    black,
+    rgb(37, 36, 66)
+  );
   transition-duration: 0.5s;
+  border-radius: 10px;
 }
-.card-img{
+.card-img {
+  border-radius: 10px 10px 0px 0px;
   width: 100%;
 }
 .card:hover {
   cursor: pointer;
   border: 1px solid rgb(132, 216, 255);
-  background-image: radial-gradient(farthest-corner at 40px 40px,black, rgb(67, 65, 119));
+  background-image: radial-gradient(
+    farthest-corner at 40px 40px,
+    black,
+    rgb(67, 65, 119)
+  );
 }
-*{
+* {
   transition-duration: 0.5s;
 }
