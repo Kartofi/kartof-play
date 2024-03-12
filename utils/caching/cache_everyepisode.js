@@ -294,6 +294,7 @@ module.exports = {
 
       await savedata.run(client, {
         id: id1,
+        updating: false,
         time: Date.now(),
         episodes: episodes,
         data: {
