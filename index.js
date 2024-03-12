@@ -68,14 +68,14 @@ app.get("/search/:keyword/:source", async (req, res) => {
   } else if (req.params.source == "Animegg") {
     data.animegg = await anime_search_animegg.run(req.params.keyword);
   } else {
-    let [gogosearch, rushsearch, mal] = await Promise.all([
+    let [gogosearch, animeggsearch, mal] = await Promise.all([
       anime_gogo_search.run(req.params.keyword),
       anime_search_animegg.run(req.params.keyword),
       anime_mal_search.run(req.params.keyword),
     ]);
     data.mal = mal;
     data.gogo = gogosearch;
-    data.rush = rushsearch;
+    data.animegg = animeggsearch;
   }
   res.render("pages/search.ejs", {
     data: data,
