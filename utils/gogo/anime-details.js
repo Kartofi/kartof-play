@@ -22,19 +22,19 @@ module.exports = {
     ).text();
     //let type = $("#wrapper_bg > section > section.content_left > div.main_body > div.anime_info_body > div.anime_info_body_bg > p:nth-child(3) > a").attr("title")
     let synopsis = $(
-      "#wrapper_bg > section > section.content_left > div.main_body > div:nth-child(2) > div.anime_info_body_bg > p:nth-child(5)"
+      "html body div#wrapper_inside div#wrapper div#wrapper_bg section.content section.content_left div.main_body div.anime_info_body div.anime_info_body_bg div.description"
     )
       .text()
       .replace("Plot Summary: ", "");
     //let status = $("#wrapper_bg > section > section.content_left > div.main_body > div.anime_info_body > div.anime_info_body_bg > p:nth-child(7)").text().replace("Status: ", "")
     let other_names = $(
-      "#wrapper_bg > section > section.content_left > div.main_body > div:nth-child(2) > div.anime_info_body_bg > p:nth-child(9)"
+      "html body div#wrapper_inside div#wrapper div#wrapper_bg section.content section.content_left div.main_body div.anime_info_body div.anime_info_body_bg p.type.other-name a"
     )
       .text()
       .replace("Other name: ", "")
       .split("; ");
     let genre = $(
-      "#wrapper_bg > section > section.content_left > div.main_body > div:nth-child(2) > div.anime_info_body_bg > p:nth-child(6)"
+      "html body div#wrapper_inside div#wrapper div#wrapper_bg section.content section.content_left div.main_body div.anime_info_body div.anime_info_body_bg p.type"
     ).find("a");
     let genres = [];
 
