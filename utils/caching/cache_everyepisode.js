@@ -40,6 +40,10 @@ module.exports = {
       let id = id1;
       let episodes = data.episodes;
 
+      if (data.updating == true) {
+        return;
+      }
+      await collection.updateOne({ id: data.id }, { $set: { updating: true } });
       if (
         episodes_max - episodes > 0 ||
         (data.data.animegg_stream != undefined &&
@@ -120,13 +124,11 @@ module.exports = {
             }
           }
           data.data.stream.push(stream);
-          try{
+          try {
             data.data.animegg_stream.push(animegg_stream);
-          }catch (e){
+          } catch (e) {
             data.data.animegg_stream = animegg_stream;
           }
-       
-          
         }
 
         for (let i = 1; i < data.data.stream.length + 1; i++) {
@@ -177,9 +179,11 @@ module.exports = {
         data.episodes = episodes_max;
         data.time = Date.now();
       }
-
+      data.updating = false;
       await savedata.run(client, data);
     } else {
+      await collection.insertOne({ id: id1, updating: true });
+
       let search = await anime_gogo_search.run(id1.replaceAll("-", " "));
       let id = id1;
       if (search[0]) {
