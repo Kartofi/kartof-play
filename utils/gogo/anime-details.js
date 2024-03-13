@@ -39,10 +39,13 @@ module.exports = {
     let genres = [];
 
     genre.each(function (index, element) {
-      genres.push(element.attribs.title);
+      if (
+        element.attribs.href.endsWith(element.attribs.title.toLocaleLowerCase())
+      ) {
+        genres.push(element.attribs.title);
+      }
     });
     let episodes = [];
-
     const ep_end = parseInt(
       $("#episode_page > li").last().text().trim().split("-")[1]
     );
@@ -58,7 +61,7 @@ module.exports = {
       otherNames: other_names,
       synopsis: synopsis,
       animeImg: img,
-      totalEpisodes: ep_end,
+      totalEpisodes: episodes.length,
       episodesList: episodes,
       watch_id: getidformname.run(title),
       genres: genres,

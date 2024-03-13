@@ -10,7 +10,7 @@ const url = process.env.mongodb;
 const client = new MongoClient(url);
 
 global.animegg_base_url = "https://www.animegg.org/";
-global.gogo_base_url = "https://gogoanime3.net/";
+global.gogo_base_url = "https://gogoanime3.co/";
 
 const { HttpsProxyAgent } = require("https-proxy-agent");
 const proxy = new HttpsProxyAgent(process.env.PROXY);
