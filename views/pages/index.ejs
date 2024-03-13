@@ -23,21 +23,9 @@
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600;700&display=swap"
     rel="stylesheet"
   />
-  <script>
-    function load() {}
-    function search() {
-      if (document.getElementById("keyword").value.trim().length > 0) {
-        window.location =
-          "/search/" +
-          document.getElementById("keyword").value +
-          "/" +
-          document.getElementById("select").value;
-      } else {
-        window.location = "/search/" + "Anime" + "/All";
-      }
-    }
-  </script>
-  <body onload="load()">
+  <script type="text/javascript" src="./js/common/search.js"></script>
+
+  <body>
     <div class="nav_bar">
       <a href ="/">
         <img class="logo"  src="./images/kartof-play.png">

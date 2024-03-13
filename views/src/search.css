@@ -9,7 +9,6 @@ select {
   border: 0px;
 }
 
-
 @media screen and (max-width: 600px) {
   input,
   option,
@@ -28,26 +27,6 @@ select {
   }
 }
 
-
-a {
-  font-family: "Open Sans", sans-serif;
-  color: rgb(138, 136, 252);
-}
-h1 {
-  font-family: "Open Sans", sans-serif;
-  color: rgb(138, 136, 252);
-  font-size: 1fr;
-}
-a:link {
-  text-decoration: none;
-  color: rgb(138, 136, 252);
-}
-a:link:hover {
-  cursor: pointer;
-}
-a:visited {
-  color: rgb(138, 136, 252);
-}
 .abutton {
   background-color: #363636;
   border-radius: 10px;

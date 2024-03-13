@@ -172,17 +172,10 @@ app.get("/watch/:id/:episode", async (req, res) => {
     } else {
       animegg_stream = checkid_data.data.animegg_stream[episode_index];
     }
-    let rush_stream = { url: "/error" };
-    if (
-      checkid_data.data.rush_stream != undefined &&
-      checkid_data.data.rush_stream[req.params.episode - 1] != null
-    ) {
-      rush_stream = checkid_data.data.rush_stream[req.params.episode - 1];
-    }
+
     res.render("pages/watch.ejs", {
       stream: stream,
       animegg_stream: animegg_stream,
-      animerush_stream: rush_stream,
       details: checkid_data.data.details,
       mal_search: checkid_data.data.mal_search,
       rating: checkid_data.data.rating,
@@ -271,19 +264,10 @@ app.get("/watch/:id/:episode", async (req, res) => {
         }
       }
     }
-    let rush_stream = { url: "/error" };
-    if (
-      checkid_data != undefined &&
-      checkid_data != null &&
-      checkid_data.data.rush_stream != undefined &&
-      checkid_data.data.rush_stream[req.params.episode - 1] != null
-    ) {
-      rush_stream = checkid_data.data.rush_stream[req.params.episode - 1];
-    }
+
     res.render("pages/watch.ejs", {
       stream: stream,
       animegg_stream: animegg_stream,
-      animerush_stream: rush_stream,
       details: details,
       mal_search: mal,
       rating: rating,

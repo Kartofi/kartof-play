@@ -31,6 +31,7 @@
     <meta content="#43B581" data-react-helmet="true" name="theme-color" />
   </head>
   <link href="/watch.css" rel="stylesheet" type="text/css" />
+  <link href="/common/buttons.css" rel="stylesheet" type="text/css" />
   <link href="/common/cards.css" rel="stylesheet" type="text/css" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,6 +40,7 @@
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600;700&display=swap"
     rel="stylesheet"
   />
+  <script src="/js/common/search.js"></script>
   <script type="text/javascript">
     function load() {
       if ("<%= stream.url %>" == undefined) {
@@ -60,8 +62,6 @@
         document.getElementById("player").src = "<%= stream.url %>";
       } else if (source == "animegg") {
         document.getElementById("player").src = "<%= animegg_stream.url %>";
-      }else {
-        document.getElementById("player").src = "<%= animerush_stream.url %>";
       }
       console.log(document.getElementById("player").src)
       load();
@@ -94,17 +94,7 @@
         show_genres.innerHTML = "Show";
       }
     }
-    function search() {
-      if (document.getElementById("keyword").value.trim().length > 0) {
-        window.location =
-          "/search/" +
-          document.getElementById("keyword").value +
-          "/" +
-          document.getElementById("select").value;
-      } else {
-        window.location = "/search/" + "Anime" + "/All";
-      }
-    }
+  
   </script>
   <body onload="load()">
     <div class="nav_bar">
@@ -213,8 +203,6 @@
           >GoGoAnime</a>
         <a class="episode abutton" id="animegg" onclick="changeSource('animegg')"
           >Animegg</a>
-        <a class="episode abutton" id="animerush" onclick="changeSource('animerush')"
-          >AnimeRush(old)</a>
         <br />
         <br />
 

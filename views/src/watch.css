@@ -147,21 +147,7 @@ iframe {
   font-size: 30px;
   align-items: center;
 }
-a {
-  font-family: "Open Sans", sans-serif;
-  color: var(--main-color);
-  font-size: 30px;
-}
-a:link {
-  text-decoration: none;
-  color: var(--main-color);
-}
-a:link:hover {
-  cursor: pointer;
-}
-a:visited {
-  color: var(--main-color);
-}
+
 .abutton {
   background-color: #363636;
   border-radius: 10px;
@@ -192,7 +178,21 @@ h1 {
   color: var(--main-color);
   font-size: 1fr;
 }
-
+a {
+  font-family: "Open Sans", sans-serif;
+  color: var(--main-color);
+  font-size: 30px;
+}
+a:link {
+  text-decoration: none;
+  color: var(--main-color);
+}
+a:link:hover {
+  cursor: pointer;
+}
+a:visited {
+  color: var(--main-color);
+}
 .title {
   font-size: 30px;
   float: left;

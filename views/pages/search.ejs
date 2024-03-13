@@ -25,23 +25,14 @@
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600;700&display=swap"
     rel="stylesheet"
   />
-  <script>
+  <script type="text/javascript" src="./js/common/search.js"></script>
+  <script type="text/javascript">
     function load() {
       document.getElementById("keyword").value = " <%=keyword%>".trim();
       document.getElementById("select").value = "<%=source%>";
     }
-    function search() {
-      if (document.getElementById("keyword").value.trim().length > 0) {
-        window.location =
-          "/search/" +
-          document.getElementById("keyword").value +
-          "/" +
-          document.getElementById("select").value;
-      } else {
-        window.location = "/search/" + "Anime" + "/All";
-      }
-    }
   </script>
+
   <body onload="load()">
     <div class="nav_bar">
       <a href="/">
