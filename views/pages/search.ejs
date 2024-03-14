@@ -58,13 +58,17 @@
     <div class="container">
       <% data.gogo.forEach(function(element) { %>
       <div onclick="location.href='<%= element.watch_url %>';" class="card">
-        <img class="card-img" src="<%= element.animeImg %>" />
-        <br />
+        <div class="card-img-holder">
+          <a href="<%= element.watch_url %>">
+            <img class="play-img" src="/images/play.svg" />
+            <img class="card-img" src="<%= element.animeImg %>" />
+          </a>
+        </div>
         <div class="data">
           <a style="color: rgb(223, 223, 255)"><%= element.source %></a>
           <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
           <br />
-          <a class="important"><%= element.rating %>🌟</a>
+          <a class="important"><%= element.rating || "N/A"%>⭐</a>
         </div>
       </div>
       <% }) %>
@@ -78,13 +82,17 @@
     <div class="container">
       <% data.animegg.forEach(function(element) { %>
       <div onclick="location.href='<%= element.watch_url %>';" class="card">
-        <img class="card-img" src="<%= element.animeImg %>" />
-        <br />
+        <div class="card-img-holder">
+          <a href="<%= element.watch_url %>">
+            <img class="play-img" src="/images/play.svg" />
+            <img class="card-img" src="<%= element.animeImg %>" />
+          </a>
+        </div>
         <div class="data">
           <a style="color: rgb(223, 223, 255)"><%= element.source %></a>
           <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
           <br />
-          <a class="important"><%= element.rating %>🌟</a>
+          <a class="important"><%= element.rating || "N/A"%>⭐</a>
         </div>
       </div>
 
@@ -99,13 +107,17 @@
     <div class="container">
       <% data.mal.forEach(function(element) { %>
       <div onclick="location.href='<%= element.watch_url %>';" class="card">
-        <img class="card-img" src="<%= element.animeImg %>" />
-        <br />
+        <div class="card-img-holder">
+          <a href="<%= element.watch_url %>">
+            <img class="play-img" src="/images/play.svg" />
+            <img class="card-img" src="<%= element.animeImg %>" />
+          </a>
+        </div>
         <div class="data">
           <a style="color: rgb(223, 223, 255)"><%= element.source %></a>
           <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
           <br />
-          <a class="important"><%= element.rating %>🌟</a>
+          <a class="important"><%= element.rating || "N/A"%>⭐</a>
         </div>
       </div>
 

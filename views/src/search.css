@@ -52,12 +52,7 @@ select {
   cursor: pointer;
   background-color: #191919;
 }
-.data {
-  text-align: center;
-  background-color: transparent;
-  border-radius: 10px;
-  height: fit-content;
-}
+
 .important {
   color: yellow;
 }
