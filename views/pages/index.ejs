@@ -59,12 +59,22 @@
             <img class="play-img" src="./images/play.svg" />
             <img class="card-img" src="<%= element.image %>" />
           </a>
+          <div class="epNum">
+            <div class="epNumChild">
+              <img src="/images/subs.svg">
+              <a <% if (element.out == true) { %> style="color: yellow;" <% }else{%> style="color: gray;" <%} %> class="important"><%= element.episode.split(" ")[1] %></a>
+            </div>
+            <div class="epNumChild">
+              <img src="/images/clock.svg">
+              <a <% if (element.out == true) { %> style="color: yellow;" <% }else{%> style="color: gray;" <%} %> class="important"><%= element.time %></a>
+            </div>
+          </div>
         </div>
         
           <div class="data no-overflow">
             <a class="anime-title" href="<%= element.watch_url %>"><%= element.title %></a>
             <br />
-            <a <% if (element.out == true) { %> style="color: yellow;" <% }else{%> style="color: gray;" <%} %> class="important"><%= element.episode %> / <%= element.time %></a>
+          
           </div>
       </div>
 
@@ -88,12 +98,18 @@
                 <img class="card-img" src="<%= element.animeImg.replace('anime-images', 'anime-images-big').replace('png','jpg') %>" />
               <% } %>
             </a>
+            <div class="epNum">
+              <div class="epNumChild">
+                <img src="/images/subs.svg">
+                <a style="color: white;"><%= element.episodeNum %></a>
+              </div>
+            </div>
           </div>
 
         <div class="data no-overflow">
           <a class="anime-title" href="<%= element.watch_url %>"><%= element.animeTitle %></a>
           <br />
-          <a class="important">Episode <%= element.episodeNum %></a>
+         
         </div>
       </div>
 
@@ -112,12 +128,16 @@
               <img class="play-img" src="./images/play.svg" />
               <img class="card-img" src="<%= element.animeImg %>" />
             </a>
+            <div class="epNum">
+              <div class="epNumChild">
+                <img src="/images/calendar.svg">
+                <a style="color: white;"><%= element.releasedDate %></a>
+              </div>
+            </div>
           </div>
 
         <div class="data no-overflow">
           <a class="anime-title" href="<%= element.watch_url %>"><%= element.animeTitle %></a>
-          <br />
-          <a class="important">Released <%= element.releasedDate %></a>
         </div>
       </div>
 

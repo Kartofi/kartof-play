@@ -25,11 +25,25 @@
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600;700&display=swap"
     rel="stylesheet"
   />
-  <script type="text/javascript" src="./js/common/search.js"></script>
+  <script type="text/javascript" src="/js/common/search.js"></script>
   <script type="text/javascript">
     function load() {
       document.getElementById("keyword").value = " <%=keyword%>".trim();
-      document.getElementById("select").value = "<%=source%>";
+
+      let source = "<%=source%>";
+
+      document.getElementById("select").value = source;
+
+      if (source == "GoGoAnime") {
+        document.getElementById("animegg-title").remove();
+        document.getElementById("mal-title").remove();
+      } else if (source == "MAL") {
+        document.getElementById("gogoanime-title").remove();
+        document.getElementById("animegg-title").remove();
+      } else if (source == "Animegg") {
+        document.getElementById("gogoanime-title").remove();
+        document.getElementById("mal-title").remove();
+      }
     }
   </script>
 
@@ -52,7 +66,7 @@
       </center>
     </div>
     <center>
-      <a style="font-size: 40px">GoGoAnime</a>
+      <a style="font-size: 40px" id="gogoanime-title">GoGoAnime</a>
     </center>
     <% if (data.gogo != null && data.gogo[0] != null){ %>
     <div class="container">
@@ -63,20 +77,24 @@
             <img class="play-img" src="/images/play.svg" />
             <img class="card-img" src="<%= element.animeImg %>" />
           </a>
+          <div class="epNum">
+            <div class="epNumChild">
+              <a class="important" ;><%= element.rating || "N/A"%> </a
+              ><img src="/images/star.svg" />
+            </div>
+          </div>
         </div>
         <div class="data">
           <a style="color: rgb(223, 223, 255)"><%= element.source %></a>
           <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
-          <br />
-          <a class="important"><%= element.rating || "N/A"%>⭐</a>
         </div>
       </div>
       <% }) %>
     </div>
     <% } %>
-    <br />
+
     <center>
-      <a style="font-size: 40px">Animegg</a>
+      <a style="font-size: 40px" id="animegg-title"><br />Animegg</a>
     </center>
     <% if (data.animegg != null && data.animegg[0] != null){ %>
     <div class="container">
@@ -87,12 +105,17 @@
             <img class="play-img" src="/images/play.svg" />
             <img class="card-img" src="<%= element.animeImg %>" />
           </a>
+          <div class="epNum">
+            <div class="epNumChild">
+              <a class="important" ;><%= element.rating || "N/A"%> </a
+              ><img src="/images/star.svg" />
+            </div>
+          </div>
         </div>
+
         <div class="data">
           <a style="color: rgb(223, 223, 255)"><%= element.source %></a>
           <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
-          <br />
-          <a class="important"><%= element.rating || "N/A"%>⭐</a>
         </div>
       </div>
 
@@ -100,9 +123,8 @@
     </div>
     <% } %>
 
-    <br />
     <center>
-      <a style="font-size: 40px">MAL</a>
+      <a style="font-size: 40px" id="mal-title"><br />MAL</a>
     </center>
     <div class="container">
       <% data.mal.forEach(function(element) { %>
@@ -112,12 +134,16 @@
             <img class="play-img" src="/images/play.svg" />
             <img class="card-img" src="<%= element.animeImg %>" />
           </a>
+          <div class="epNum">
+            <div class="epNumChild">
+              <a class="important" ;><%= element.rating || "N/A"%> </a
+              ><img src="/images/star.svg" />
+            </div>
+          </div>
         </div>
         <div class="data">
           <a style="color: rgb(223, 223, 255)"><%= element.source %></a>
           <a href="<%= element.watch_url %>"><%= element.animeTitle %></a>
-          <br />
-          <a class="important"><%= element.rating || "N/A"%>⭐</a>
         </div>
       </div>
 

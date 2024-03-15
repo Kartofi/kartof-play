@@ -5,9 +5,7 @@
   border: 0px;
   color: rgb(138, 136, 252);
 }
-.abutton:hover {
-  cursor: pointer;
-}
+
 .white_text {
   color: white;
 }
@@ -24,12 +22,21 @@ a:link {
   text-decoration: none;
   color: rgb(138, 136, 252);
 }
-a:link:hover {
-  cursor: pointer;
-}
+
 a:visited {
   color: rgb(138, 136, 252);
 }
+
+/* hover only pc */
+@media screen and (min-width: 600px) {
+  a:link:hover {
+    cursor: pointer;
+  }
+  .abutton:hover {
+    cursor: pointer;
+  }
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 20px;

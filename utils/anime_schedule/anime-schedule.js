@@ -39,13 +39,12 @@ module.exports = {
           return;
         }
         let out = false;
-
         if (new Date(time) < new Date()) {
           out = true;
         }
         data.push({
           episode: episode,
-          time: moment(time).format("HH:MM"),
+          time: moment(time).format("hh:mm"),
           out: out,
           image: image,
           id: id,
@@ -58,6 +57,11 @@ module.exports = {
             episode.replace(/\D/g, ""),
         });
       }
+    });
+    data.sort((a, b) => {
+      const timeA = new Date("1970-01-01T" + a.time + ":00");
+      const timeB = new Date("1970-01-01T" + b.time + ":00");
+      return timeA - timeB;
     });
     return data;
   },
