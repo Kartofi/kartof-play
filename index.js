@@ -51,7 +51,6 @@ app.get("/error", async (req, res) => {
 
 app.get("/", async (req, res) => {
   //let started = new Timestamp(new Date());
-  let da = await anime_schedule.run();
 
   let data = await cache_main.run(client);
   //console.log((Timestamp(new Date()) - started) / 1000);
