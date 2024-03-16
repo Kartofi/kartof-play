@@ -64,8 +64,22 @@
               <img src="/images/subs.svg">
               <a <% if (element.out == true) { %> style="color: yellow;" <% }else{%> style="color: gray;" <%} %> class="important"><%= element.episode.split(" ")[1] %></a>
             </div>
-            <div class="epNumChild">
+           
+          </div>
+          <div class="epTime">
+            <div class="epTimeChild">
               <img src="/images/clock.svg">
+              <% var date = new Date(element.time); %>
+              <% var offset = date.getTimezoneOffset(); %>
+
+               
+              <%  date.setMinutes(date.getMinutes() - offset);  %>
+              <%  var hours = date.getHours();  %>
+              <% var minutes = date.getMinutes();  %>
+
+              <% element.time = ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2);  %>
+ 
+             
               <a <% if (element.out == true) { %> style="color: yellow;" <% }else{%> style="color: gray;" <%} %> class="important"><%= element.time %></a>
             </div>
           </div>
@@ -146,4 +160,5 @@
 
     
   </body>
+  
 </html>

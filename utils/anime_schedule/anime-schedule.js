@@ -44,7 +44,7 @@ module.exports = {
         }
         data.push({
           episode: episode,
-          time: moment(time).format("hh:mm"),
+          time: time,
           out: out,
           image: image,
           id: id,
@@ -59,10 +59,9 @@ module.exports = {
       }
     });
     data.sort((a, b) => {
-      const timeA = new Date("1970-01-01T" + a.time + ":00");
-      const timeB = new Date("1970-01-01T" + b.time + ":00");
-      return timeA - timeB;
+      return a - b;
     });
+    data.reverse();
     return data;
   },
 };

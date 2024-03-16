@@ -77,6 +77,35 @@
   padding-right: 2.5px;
 }
 
+.epTime {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  margin: 0;
+  padding: 0 12.5px;
+  height: auto;
+  min-width: auto;
+  white-space: nowrap;
+  border-radius: 5px;
+  background-color: rgb(63, 63, 63);
+  border-color: rgb(138, 136, 252);
+  border-width: 2.5px;
+  border-style: solid;
+}
+
+.epTimeChild {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.epTimeChild a {
+  padding-left: 2.5px;
+}
+
+.epTimeChild img {
+  padding-right: 2.5px;
+}
 /* hover only pc */
 @media screen and (min-width: 600px) {
   .anime-title:hover {
@@ -85,12 +114,12 @@
   .card-img-holder:hover .play-img {
     opacity: 0.5;
   }
-  .card-img-holder:hover {
+  .card-img:hover {
     cursor: pointer;
   }
   .card-img-holder:hover .card-img {
-    webkit-filter: blur(8px); /* Chrome, Safari, Opera */
-    filter: blur(8px);
+    webkit-filter: blur(4px); /* Chrome, Safari, Opera */
+    filter: blur(4px);
     transform: scale(1.25);
   }
 }
