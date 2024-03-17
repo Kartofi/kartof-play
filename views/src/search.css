@@ -1,39 +1,5 @@
-input,
-option,
-select {
-  color: white;
-  background-color: #141414;
-  outline: none;
-  border-radius: 10px;
-  font-size: 30px;
-  border: 0px;
-}
 
-@media screen and (max-width: 600px) {
-  input,
-  option,
-  select {
-    width: 100%;
-  }
-  input,
-  option,
-  select::after {
-    content: "<br>";
-  }
-  input,
-  option,
-  select::before {
-    content: "<br>";
-  }
-}
 
-.abutton {
-  background-color: #363636;
-  border-radius: 10px;
-  font-size: 30px;
-  border: 0px;
-  color: rgb(138, 136, 252);
-}
 .title {
   font-size: 30px;
   float: left;
@@ -48,14 +14,7 @@ select {
   width: 46px;
   float: left;
 }
-.abutton:hover {
-  cursor: pointer;
-  background-color: #191919;
-}
 
-.important {
-  color: yellow;
-}
 
 body {
   background-color: #191919;

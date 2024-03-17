@@ -47,65 +47,44 @@
 .card {
   display: inline;
 }
+.card-info-image {
+  padding: 0 11px;
+  height: auto;
+  min-width: auto;
+  white-space: nowrap;
+  border-radius: 5px;
+  background-color: rgb(63, 63, 63);
+  border-color: rgb(138, 136, 252);
+  border-width: 2.5px;
+  border-style: solid;
+  margin: 0;
+}
 
 .epNum {
   position: absolute;
   bottom: 5px;
   left: 5px;
-  margin: 0;
-  padding: 0 17.5px;
-  height: auto;
-  min-width: auto;
-  white-space: nowrap;
-  border-radius: 5px;
-  background-color: rgb(63, 63, 63);
-  border-color: rgb(138, 136, 252);
-  border-width: 2.5px;
-  border-style: solid;
 }
-.epNumChild {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.epNumChild a {
-  padding-left: 2.5px;
-}
-
-.epNumChild img {
-  padding-right: 2.5px;
-}
-
 .epTime {
   position: absolute;
   bottom: 5px;
   right: 5px;
-  margin: 0;
-  padding: 0 12.5px;
-  height: auto;
-  min-width: auto;
-  white-space: nowrap;
-  border-radius: 5px;
-  background-color: rgb(63, 63, 63);
-  border-color: rgb(138, 136, 252);
-  border-width: 2.5px;
-  border-style: solid;
 }
 
-.epTimeChild {
+.card-info-image-child {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.epTimeChild a {
+.card-info-image-child a {
   padding-left: 2.5px;
 }
 
-.epTimeChild img {
+.card-info-image-child img {
   padding-right: 2.5px;
 }
+
 /* hover only pc */
 @media screen and (min-width: 600px) {
   .anime-title:hover {

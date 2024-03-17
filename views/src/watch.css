@@ -125,21 +125,6 @@ iframe {
   iframe {
     width: 100%;
   }
-  input,
-  option,
-  select {
-    width: 100%;
-  }
-  input,
-  option,
-  select::after {
-    content: "<br>";
-  }
-  input,
-  option,
-  select::before {
-    content: "<br>";
-  }
 }
 .details {
   font-family: "Open Sans", sans-serif;
@@ -199,16 +184,6 @@ a:visited {
   color: var(--main-color);
 }
 
-input,
-option,
-select {
-  color: white;
-  background-color: #141414;
-  outline: none;
-  border-radius: 10px;
-  font-size: 30px;
-  border: 0px;
-}
 /* width */
 ::-webkit-scrollbar {
   width: 20px;

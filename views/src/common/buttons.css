@@ -5,6 +5,9 @@
   border: 0px;
   color: rgb(138, 136, 252);
 }
+.important {
+  color: yellow;
+}
 
 .white_text {
   color: white;

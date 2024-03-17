@@ -16,6 +16,7 @@
   </head>
   <link href="./index.css" rel="stylesheet" type="text/css" />
   <link href="./common/cards.css" rel="stylesheet" type="text/css" />
+  <link href="./common/inputs.css" rel="stylesheet" type="text/css" />
   <link href="/common/buttons.css" rel="stylesheet" type="text/css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -59,15 +60,15 @@
             <img class="play-img" src="./images/play.svg" />
             <img class="card-img" src="<%= element.image %>" />
           </a>
-          <div class="epNum">
-            <div class="epNumChild">
+          <div class="card-info-image epNum">
+            <div class="card-info-image-child">
               <img src="/images/subs.svg">
               <a <% if (element.out == true) { %> style="color: yellow;" <% }else{%> style="color: gray;" <%} %> class="important"><%= element.episode.split(" ")[1] %></a>
             </div>
            
           </div>
-          <div class="epTime">
-            <div class="epTimeChild">
+          <div class="card-info-image epTime">
+            <div class="card-info-image-child">
               <img src="/images/clock.svg">
               <% var date = new Date(element.time); %>
               <% var offset = date.getTimezoneOffset(); %>
@@ -112,8 +113,8 @@
                 <img class="card-img" src="<%= element.animeImg.replace('anime-images', 'anime-images-big').replace('png','jpg') %>" />
               <% } %>
             </a>
-            <div class="epNum">
-              <div class="epNumChild">
+            <div class="card-info-image epNum">
+              <div class="card-info-image-child">
                 <img src="/images/subs.svg">
                 <a style="color: white;"><%= element.episodeNum %></a>
               </div>
@@ -142,8 +143,8 @@
               <img class="play-img" src="./images/play.svg" />
               <img class="card-img" src="<%= element.animeImg %>" />
             </a>
-            <div class="epNum">
-              <div class="epNumChild">
+            <div class="card-info-image epNum">
+              <div class="card-info-image-child">
                 <img src="/images/calendar.svg">
                 <a style="color: white;"><%= element.releasedDate %></a>
               </div>

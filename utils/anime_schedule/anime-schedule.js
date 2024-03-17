@@ -58,9 +58,7 @@ module.exports = {
         });
       }
     });
-    data.sort((a, b) => {
-      return a - b;
-    });
+    data.sort((a, b) => a.time.localeCompare(b.time));
     data.reverse();
     return data;
   },

@@ -1,0 +1,28 @@
+@media screen and (max-width: 600px) {
+  input,
+  option,
+  select {
+    width: 100%;
+  }
+  input,
+  option,
+  select::after {
+    content: "<br>";
+  }
+  input,
+  option,
+  select::before {
+    content: "<br>";
+  }
+}
+
+input,
+option,
+select {
+  color: white;
+  background-color: #141414;
+  outline: none;
+  border-radius: 5px;
+  font-size: 30px;
+  border: 0px;
+}
