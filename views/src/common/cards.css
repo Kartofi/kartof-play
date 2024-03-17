@@ -64,17 +64,20 @@
   position: absolute;
   bottom: 5px;
   left: 5px;
+  margin: 0;
 }
 .epTime {
   position: absolute;
   bottom: 5px;
   right: 5px;
+  margin: 0;
 }
 
 .card-info-image-child {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
 }
 
 .card-info-image-child a {
