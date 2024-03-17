@@ -30,11 +30,16 @@ module.exports = {
           let element_data = $(element);
           let id = element_data.attr("href").split("/")[2];
           let image = element_data.find("img.media-object").attr("src");
+          let title = element_data.find("h2").first().text();
+
+          let divs = element_data.find("div");
+
+          let episodes = divs.last().prev().prev().text().split(" ")[1];
           data.push({
             animeId: id,
-            animeTitle: element_data.find("h2").first().text(),
+            animeTitle: title,
             animeImg: image,
-            source: "(Animegg)",
+            episodes: episodes,
             watch_url: "/watch/" + id + "/1",
           });
         }

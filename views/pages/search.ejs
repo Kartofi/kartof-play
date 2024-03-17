@@ -17,7 +17,7 @@
     <meta content="#43B581" data-react-helmet="true" name="theme-color" />
   </head>
   <link href="/search.css" rel="stylesheet" type="text/css" />
-  <link href="./common/inputs.css" rel="stylesheet" type="text/css" />
+  <link href="/common/inputs.css" rel="stylesheet" type="text/css" />
   <link href="/common/cards.css" rel="stylesheet" type="text/css" />
   <link href="/common/buttons.css" rel="stylesheet" type="text/css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -72,7 +72,7 @@
     <% if (data.gogo != null && data.gogo[0] != null){ %>
     <div class="container">
       <% data.gogo.forEach(function(element) { %>
-      <div onclick="location.href='<%= element.watch_url %>';" class="card">
+      <div class="card">
         <div class="card-img-holder">
           <a href="<%= element.watch_url %>">
             <img class="play-img" src="/images/play.svg" />
@@ -80,8 +80,9 @@
           </a>
           <div class="card-info-image epNum">
             <div class="card-info-image-child">
-              <a class="important" ;><%= element.rating || "N/A"%> </a
-              ><img src="/images/star.svg" />
+              <img src="/images/calendar.svg" /><a style="color: white" ;
+                ><%= element.released || "N/A"%>
+              </a>
             </div>
           </div>
         </div>
@@ -100,7 +101,7 @@
     <% if (data.animegg != null && data.animegg[0] != null){ %>
     <div class="container">
       <% data.animegg.forEach(function(element) { %>
-      <div onclick="location.href='<%= element.watch_url %>';" class="card">
+      <div class="card">
         <div class="card-img-holder">
           <a href="<%= element.watch_url %>">
             <img class="play-img" src="/images/play.svg" />
@@ -108,8 +109,9 @@
           </a>
           <div class="card-info-image epNum">
             <div class="card-info-image-child">
-              <a class="important" ;><%= element.rating || "N/A"%> </a
-              ><img src="/images/star.svg" />
+              <img src="/images/subs.svg" /><a style="color: white" ;
+                ><%= element.episodes || "N/A"%>
+              </a>
             </div>
           </div>
         </div>
@@ -129,16 +131,23 @@
     </center>
     <div class="container">
       <% data.mal.forEach(function(element) { %>
-      <div onclick="location.href='<%= element.watch_url %>';" class="card">
+      <div class="card">
         <div class="card-img-holder">
           <a href="<%= element.watch_url %>">
             <img class="play-img" src="/images/play.svg" />
             <img class="card-img" src="<%= element.animeImg %>" />
           </a>
-          <div class="card-info-image epNum">
+          <div class="card-info-image epTime">
             <div class="card-info-image-child">
               <a class="important" ;><%= element.rating || "N/A"%> </a
               ><img src="/images/star.svg" />
+            </div>
+          </div>
+          <div class="card-info-image epNum">
+            <div class="card-info-image-child">
+              <img src="/images/subs.svg" /><a style="color: white" ;
+                ><%= element.episodes || "N/A"%>
+              </a>
             </div>
           </div>
         </div>

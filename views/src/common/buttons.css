@@ -36,7 +36,10 @@ a:visited {
     cursor: pointer;
   }
   .abutton:hover {
+    background-color: #191919;
+    background-image: radial-gradient(#303030, var(--secondary-color));
     cursor: pointer;
+    border: 1px solid var(--main-color);
   }
 }
 

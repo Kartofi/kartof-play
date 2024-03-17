@@ -28,14 +28,13 @@ module.exports = {
       let id = $(element).find("a").attr("href").split("/")[2];
       let watch_url =
         "/watch/" + $(element).find("a").attr("href").split("/")[2] + "/1";
-
+      let released = $(element).find("p.released").html().trim().split(" ")[1];
       data.push({
         animeId: id,
         animeTitle: title,
+        released: released,
         animeImg: image,
         watch_url: watch_url,
-        rating: "",
-        source: "(GoGoAnime)",
       });
     });
 
