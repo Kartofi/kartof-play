@@ -12,7 +12,7 @@
 
 
 ## Still in dev
-<img aling="center" src="./imgs/preview.png">
+<img aling="center" src="./imgs/preview.gif">
 UI is trash but i will improve it
 
 ## Load Times
