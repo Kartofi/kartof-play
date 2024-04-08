@@ -70,12 +70,12 @@
           <div class="card-info-image epTime">
             <div class="card-info-image-child">
               <img src="/images/clock.svg">
-              <% var date = new Date(element.time.split("+")[0]); %>
+              <% var date = new Date(element.time); %>
               <% var offset = date.getTimezoneOffset(); %>
 
                
               <%  date.setMinutes(date.getMinutes() - offset);  %>
-              <%  var hours = date.getHours()  - Number(element.time.split("+")[1].split(":")[0]);  %>
+              <%  var hours = date.getHours()  + 3;  %>
               <% var minutes = date.getMinutes();  %>
 
               <% element.time = ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2);  %>
